@@ -34,4 +34,11 @@ class MovableObject {
         }, 1000/60); // 60 FPS
     }
 
+    playAnimation(images) {
+        let index = this.currentImage % images.length;
+        let path = images[index];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
 }
