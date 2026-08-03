@@ -49,15 +49,28 @@ class World {
 
     addToMap(mo) {
         if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+            this.flippImage(mo);
         }
+
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx); // Draw the frame for debugging
+
+
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.flippImageBack(mo);
         }
+    }
+
+    flippImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    flippImageBack(mo) {
+        this.ctx.restore();
+        mo.x = mo.x * -1;
     }
 }
