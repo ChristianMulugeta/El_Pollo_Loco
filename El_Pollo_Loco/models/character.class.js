@@ -31,6 +31,7 @@ class Character extends MovableObject {
                 this.x -= this.speed; // Bewegt das Objekt nach links
                 this.otherDirection = true;
             }
+            this.world.camera_x = -this.x + 100; // Kamera folgt dem Charakter
         }, 1000 / 60); // 60 FPS
 
         setInterval(() => {
