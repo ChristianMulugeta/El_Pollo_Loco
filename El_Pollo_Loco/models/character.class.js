@@ -46,6 +46,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
     }
@@ -75,6 +76,8 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
@@ -88,7 +91,7 @@ class Character extends MovableObject {
     }
 
     jump() {
-        this.speedY = 25; // Setzt die Geschwindigkeit nach oben
+        this.speedY = 25 ; // Setzt die Geschwindigkeit nach oben
     }
 
 }
