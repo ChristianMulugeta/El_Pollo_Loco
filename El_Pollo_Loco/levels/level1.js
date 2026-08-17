@@ -7,7 +7,7 @@ const level1 = new Level(
     ],
 
     [
-        new cloud()
+        new Cloud()
     ],
 
     [

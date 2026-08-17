@@ -3,7 +3,13 @@ class Character extends MovableObject {
     y = 50;
     height = 300;
     width = 200;
-    speed = 10;
+    offset = {
+        top: 115,
+        right: 30,
+        bottom: 5,
+        left: 30
+    };
+    speed = 5;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-22.png',
         'img/2_character_pepe/2_walk/W-23.png',
@@ -54,6 +60,10 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
+            if (this.isDead()) {
+                return;
+            }
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -70,7 +80,7 @@ class Character extends MovableObject {
             }
 
             this.world.camera_x = -this.x + 100; // Kamera folgt dem Charakter
-        }, 2000 / 60); // 60 FPS
+        }, 1000 / 60); // 60 FPS
 
         setInterval(() => {
 
