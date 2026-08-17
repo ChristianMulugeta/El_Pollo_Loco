@@ -85,8 +85,6 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx); // Draw the frame for debugging
-
 
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if (mo.otherDirection) {
