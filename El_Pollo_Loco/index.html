@@ -23,12 +23,25 @@
 
 </head>
 
-<body onload="init()">
+<body>
     <h1>El Pollo Loco</h1>
-
-
-    <canvas id="canvas" width="720" height="480">
-        Your browser does not support the canvas element.
-    </canvas>
+    <main class="game-container">
+        <canvas id="canvas" width="720" height="480">
+            Your browser does not support the canvas element.
+        </canvas>
+        <section id="start-screen" class="start-screen">
+            <div class="start-actions">
+                <button class="game-button" type="button" onclick="startGame()">Start Game</button>
+                <button class="game-button" type="button" onclick="showControls()">Controls</button>
+            </div>
+        </section>
+        <dialog id="controls-dialog" class="controls-dialog" onclick="closeControlsOnBackdrop(event)">
+            <h2>Controls</h2>
+            <p><span>Move</span> Arrow keys or A / D</p>
+            <p><span>Jump</span> Space</p>
+            <p><span>Throw bottle</span> R</p>
+            <button class="game-button" type="button" onclick="closeControls()">Close</button>
+        </dialog>
+    </main>
 </body>
 </html>

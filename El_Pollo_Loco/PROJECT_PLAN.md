@@ -40,14 +40,14 @@ Noch offen aus der technischen Grundlage:
 - Intervall-IDs zentral erfassen und für Game Over beziehungsweise Restart stoppen
 - einen optionalen, standardmäßig deaktivierten Hitbox-Debugmodus zum Feinjustieren erwägen
 
-## Nächste Phasen
-
-### Phase 3 – Startscreen und Spielerklärung
+### Phase 3 – Startscreen und Spielerklärung: abgeschlossen
 
 - automatischen Spielstart entfernen
 - statischen Startscreen mit Start-Button erstellen
 - Steuerungsdialog mit Schließen-Button und Klick-außerhalb-Verhalten erstellen
 - Gegner und World erst beim Start aktivieren
+
+## Nächste Phasen
 
 ### Phase 4 – Coins, Flaschen und Statusanzeigen
 
@@ -115,4 +115,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Beim nächsten Mal mit **Phase 3 – Startscreen und Spielerklärung** beginnen. Zuerst erklären, warum `onload="init()"` aktuell sofort eine `World` erzeugt, und anschließend Spielinitialisierung und Start-Button in einem kleinen Schritt voneinander trennen.
+Beim nächsten Mal mit **Phase 4 – Coins, Flaschen und Statusanzeigen** beginnen. Zuerst die vorhandenen Coin- und Bottle-Assets sowie die aktuelle `Level`-Struktur prüfen und anschließend die sammelbaren Objekte in einem kleinen Schritt modellieren.

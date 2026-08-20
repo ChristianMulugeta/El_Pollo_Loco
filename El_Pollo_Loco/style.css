@@ -27,8 +27,85 @@ canvas{
     display: block;
 }
 
+.game-container {
+    position: relative;
+    width: 720px;
+    max-width: 100%;
+}
+
+.start-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: url('img/9_intro_outro_screens/start/startscreen_1.png') center / cover;
+}
+
+.start-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.game-button {
+    margin-top: 32px;
+    padding: 10px 28px;
+    border: 3px solid #7b310c;
+    border-radius: 12px;
+    background-color: #ffca28;
+    color: #5b2108;
+    font: 32px 'zabars', Arial, sans-serif;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.game-button:hover {
+    background-color: #ffe082;
+    transform: scale(1.04);
+}
+
+.controls-dialog {
+    min-width: 280px;
+    padding: 24px 32px;
+    border: 4px solid #7b310c;
+    border-radius: 16px;
+    background-color: #ffe0a3;
+    color: #5b2108;
+    font: 24px Arial, sans-serif;
+}
+
+.controls-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.controls-dialog h2 {
+    margin: 0 0 20px;
+    font: 48px 'zabars', Arial, sans-serif;
+    text-align: center;
+}
+
+.controls-dialog p {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.controls-dialog span {
+    font-weight: bold;
+}
+
+.controls-dialog .game-button {
+    display: block;
+    margin: 24px auto 0;
+}
+
+.hidden {
+    display: none;
+}
+
 @media only screen and (max-width: 720px) {
-    canvas {
+    canvas,
+    .game-container {
         width: 100%;
     }
     h1 {
@@ -37,10 +114,20 @@ canvas{
 }
 
 @media only screen and (max-width: 480px) {
-    canvas {
+    canvas,
+    .game-container {
         height: 100vh;
     }
     h1 {
         display: none;
+    }
+
+    .start-actions {
+        gap: 8px;
+    }
+
+    .game-button {
+        padding: 8px 18px;
+        font-size: 26px;
     }
 }
