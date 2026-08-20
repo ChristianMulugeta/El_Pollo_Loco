@@ -1,54 +1,41 @@
+const HEALTH_STATUS_IMAGES = [
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+    'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
+];
+
 class StatusBar extends DrawableObject {
+    percentage;
 
-
-    IMAGES = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png', // 0
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png' // 5
-    ];
-
-    percentage = 100;
-
-    constructor() {
+    /** Creates a status bar with configurable images and position. */
+    constructor(images = HEALTH_STATUS_IMAGES, y = 0, percentage = 100) {
         super();
+        this.IMAGES = images;
         this.loadImages(this.IMAGES);
-        this.setPercentage(100);
         this.x = 20;
-        this.y = 0;
+        this.y = y;
         this.width = 200;
         this.height = 60;
+        this.setPercentage(percentage);
     }
 
-    // Set the percentage of the status bar and update the image accordingly
+    /** Updates the percentage and displayed status image. */
     setPercentage(percentage) {
-        this.percentage = percentage; // => 0 ... 5
-        let imagePath = this.IMAGES[this.resolveImageIndex()];
+        this.percentage = Math.max(0, Math.min(percentage, 100));
+        const imagePath = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
-    resolveImageIndex(){
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage >= 80) {
-            return 4;
-        } else if (this.percentage >= 60) {
-            return 3;
-        } else if (this.percentage >= 40) {
-            return 2;
-        } else if (this.percentage >= 20) {
-            return 1;
-        } else {
-            return 0;
-        }
+
+    /** Raises a collectible status bar by one of five steps. */
+    increase() {
+        this.setPercentage(this.percentage + 20);
     }
-    
 
-
-
-
-
-
-
+    /** Resolves the current image index from the percentage. */
+    resolveImageIndex() {
+        return Math.ceil(this.percentage / 20);
+    }
 }

@@ -47,14 +47,14 @@ Noch offen aus der technischen Grundlage:
 - Steuerungsdialog mit Schließen-Button und Klick-außerhalb-Verhalten erstellen
 - Gegner und World erst beim Start aktivieren
 
-## Nächste Phasen
-
-### Phase 4 – Coins, Flaschen und Statusanzeigen
+### Phase 4 – Coins, Flaschen und Statusanzeigen: abgeschlossen
 
 - `Coin` und sammelbare `Bottle` erstellen
 - Gegenstände über `Level` verwalten
 - Sammelkollisionen und Entfernen ergänzen
 - Coin- und Flaschenstatusbar erstellen
+
+## Nächste Phasen
 
 ### Phase 5 – Vollständige Wurfmechanik
 
@@ -115,4 +115,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Beim nächsten Mal mit **Phase 4 – Coins, Flaschen und Statusanzeigen** beginnen. Zuerst die vorhandenen Coin- und Bottle-Assets sowie die aktuelle `Level`-Struktur prüfen und anschließend die sammelbaren Objekte in einem kleinen Schritt modellieren.
+Beim nächsten Mal mit **Phase 5 – Vollständige Wurfmechanik** beginnen. Zuerst den Flaschenvorrat an die bestehende Wurfeingabe anbinden und anschließend Wurfrichtung, Rotation, Splash und Trefferprüfung in kleinen Schritten ergänzen.
