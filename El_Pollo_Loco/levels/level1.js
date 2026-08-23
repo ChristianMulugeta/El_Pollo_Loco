@@ -16,7 +16,10 @@ function createLevel1() {
 
 /** Creates all enemies for the first level. */
 function createLevel1Enemies() {
-    return [new Chicken(), new Chicken(), new Chicken(), new Endboss()];
+    return [
+        new Chicken(), new SmallChicken(), new Chicken(),
+        new SmallChicken(), new Endboss()
+    ];
 }
 
 /** Creates all clouds for the first level. */

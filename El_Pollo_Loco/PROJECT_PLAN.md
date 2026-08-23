@@ -66,8 +66,8 @@ Noch offen aus der technischen Grundlage:
 
 ### Phase 6 – Normale Gegner vervollständigen
 
-- kleinen Chicken-Typ ergänzen
-- unterschiedliche Größe und Geschwindigkeit verwenden
+- kleinen Chicken-Typ ergänzen: umgesetzt und getestet
+- unterschiedliche Größe und Geschwindigkeit verwenden: umgesetzt und getestet
 - Hurt- und Dead-Zustände ergänzen
 - Treffer durch Flaschen und Sprung von oben umsetzen
 - seitlichen Sprung ausdrücklich nicht als Angriff werten
