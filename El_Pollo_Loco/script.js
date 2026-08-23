@@ -49,6 +49,8 @@ function clearCanvas() {
 /** Connects every marked touch button to its keyboard state. */
 function initializeTouchControls() {
     document.querySelectorAll("[data-key]").forEach(bindTouchButton);
+    const controls = document.querySelector(".touch-controls");
+    controls.addEventListener("contextmenu", (event) => event.preventDefault());
 }
 
 /** Adds press and release handling to one touch button. */
