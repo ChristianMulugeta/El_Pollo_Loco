@@ -68,7 +68,7 @@ Noch offen aus der technischen Grundlage:
 
 - kleinen Chicken-Typ ergänzen: umgesetzt und getestet
 - unterschiedliche Größe und Geschwindigkeit verwenden: umgesetzt und getestet
-- Hurt- und Dead-Zustände ergänzen
+- Hurt- und Dead-Zustände: Trefferzustand und Dead-Bild umgesetzt und getestet; Hurt-Bilder fehlen in den vorhandenen Assets
 - Treffer durch Flaschen und Sprung von oben umsetzen
 - seitlichen Sprung ausdrücklich nicht als Angriff werten
 

@@ -56,7 +56,9 @@ class World {
     checkBottleHits() {
         this.throwableObjects.forEach((bottle) => {
             if (bottle.isSplashing) return;
-            const enemy = this.level.enemies.find((enemy) => bottle.isColliding(enemy));
+            const enemy = this.level.enemies.find((enemy) => {
+                return !enemy.isDead() && !enemy.isHurt() && bottle.isColliding(enemy);
+            });
             if (!enemy) return;
             enemy.hit();
             bottle.startSplash();
@@ -73,7 +75,8 @@ class World {
     /** Applies enemy collision damage to the character. */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+            const hitsLivingEnemy = !enemy.isDead() && this.character.isColliding(enemy);
+            if (hitsLivingEnemy && !this.character.isHurt()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
