@@ -20,9 +20,10 @@ class World {
         this.run();
     }
 
-    /** Gives the character access to its world. */
+    /** Gives game objects access to their world. */
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach((enemy) => enemy.world = this);
     }
 
     /** Starts the recurring collision and input checks. */

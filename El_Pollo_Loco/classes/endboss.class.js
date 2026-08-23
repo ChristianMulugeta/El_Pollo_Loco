@@ -1,8 +1,11 @@
 class Endboss extends MovableObject {
-
     height = 400;
     width = 400;
     y = 60;
+    world;
+    isActive = false;
+    activationDistance = 600;
+    speed = 1.25;
     offset = {
         top: 70,
         right: 15,
@@ -24,9 +27,29 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /** Starts the boss movement and animation intervals. */
     animate() {
-        setInterval(() => {
+        setInterval(() => this.updateMovement(), 1000 / 60);
+        setInterval(() => this.updateAnimation(), 1000 / 10);
+    }
+
+    /** Activates and moves the living boss toward Pepe. */
+    updateMovement() {
+        this.activateIfNearby();
+        if (this.isActive && !this.isDead()) this.moveLeft();
+    }
+
+    /** Animates the boss only after activation. */
+    updateAnimation() {
+        if (this.isActive && !this.isDead()) {
             this.playAnimation(this.IMAGES_WALKING);
-        }, 1000 / 10); // 10 FPS
+        }
+    }
+
+    /** Activates the boss when Pepe enters its detection range. */
+    activateIfNearby() {
+        if (!this.world || this.isActive) return;
+        const distance = this.x - this.world.character.x;
+        if (distance < this.activationDistance) this.isActive = true;
     }
 }
