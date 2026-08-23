@@ -61,7 +61,8 @@ Noch offen aus der technischen Grundlage:
 - Werfen an Flaschenvorrat binden: umgesetzt und getestet
 - Vorrat beim Werfen reduzieren: umgesetzt und getestet
 - Wurfrichtung an Blickrichtung anpassen: umgesetzt und getestet
-- Rotation, Splash, Trefferprüfung und Entfernen ergänzen
+- Rotation und Splash: umgesetzt und getestet
+- Trefferprüfung und Entfernen ergänzen
 
 ### Phase 6 – Normale Gegner vervollständigen
 
