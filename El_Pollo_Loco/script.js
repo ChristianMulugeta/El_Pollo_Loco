@@ -46,6 +46,25 @@ function clearCanvas() {
     if (canvas) canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
+/** Connects every marked touch button to its keyboard state. */
+function initializeTouchControls() {
+    document.querySelectorAll("[data-key]").forEach(bindTouchButton);
+}
+
+/** Adds press and release handling to one touch button. */
+function bindTouchButton(button) {
+    button.addEventListener("pointerdown", (event) => updateTouchKey(event, true));
+    ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
+        button.addEventListener(eventName, (event) => updateTouchKey(event, false));
+    });
+}
+
+/** Updates the keyboard property selected by the pressed button. */
+function updateTouchKey(event, isPressed) {
+    event.preventDefault();
+    keyboard[event.currentTarget.dataset.key] = isPressed;
+}
+
 /** Opens the controls dialog. */
 function showControls() {
     document.getElementById("controls-dialog").showModal();
@@ -106,3 +125,5 @@ window.addEventListener("keyup", (e) => {
         keyboard.SPACE = false;
     }
 });
+
+window.addEventListener("load", initializeTouchControls);

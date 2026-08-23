@@ -92,6 +92,7 @@ canvas{
     color: #5b2108;
     font: 28px Arial, sans-serif;
     pointer-events: auto;
+    touch-action: none;
 }
 
 .touch-button--throw {
