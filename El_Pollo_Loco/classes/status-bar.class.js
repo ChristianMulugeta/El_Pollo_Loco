@@ -34,6 +34,11 @@ class StatusBar extends DrawableObject {
         this.setPercentage(this.percentage + 20);
     }
 
+    /** Lowers a collectible status bar by one of five steps. */
+    decrease() {
+        this.setPercentage(this.percentage - 20);
+    }
+
     /** Resolves the current image index from the percentage. */
     resolveImageIndex() {
         return Math.ceil(this.percentage / 20);

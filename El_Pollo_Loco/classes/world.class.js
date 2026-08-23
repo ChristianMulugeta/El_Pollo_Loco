@@ -36,11 +36,18 @@ class World {
 
     /** Creates a throwable bottle when the throw key is pressed. */
     checkThrowObjects() {
-        if (this.keyboard.R) {
-            const bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-            this.keyboard.R = false;
-        }
+        if (!this.keyboard.R) return;
+        if (this.bottleStatusBar.percentage > 0) this.throwBottle();
+        this.keyboard.R = false;
+    }
+
+    /** Uses one collected bottle and throws it in the facing direction. */
+    throwBottle() {
+        const facingLeft = this.character.otherDirection;
+        const x = facingLeft ? this.character.x : this.character.x + 140;
+        const bottle = new ThrowableObject(x, this.character.y + 100, facingLeft);
+        this.throwableObjects.push(bottle);
+        this.bottleStatusBar.decrease();
     }
 
     /** Applies enemy collision damage to the character. */

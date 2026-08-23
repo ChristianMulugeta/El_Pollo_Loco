@@ -56,11 +56,11 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächste Phasen
 
-### Phase 5 – Vollständige Wurfmechanik
+### Phase 5 – Vollständige Wurfmechanik: begonnen
 
-- Werfen an Flaschenvorrat binden
-- Vorrat beim Werfen reduzieren
-- Wurfrichtung an Blickrichtung anpassen
+- Werfen an Flaschenvorrat binden: umgesetzt und getestet
+- Vorrat beim Werfen reduzieren: umgesetzt und getestet
+- Wurfrichtung an Blickrichtung anpassen: umgesetzt und getestet
 - Rotation, Splash, Trefferprüfung und Entfernen ergänzen
 
 ### Phase 6 – Normale Gegner vervollständigen
@@ -115,4 +115,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Beim nächsten Mal mit **Phase 5 – Vollständige Wurfmechanik** beginnen. Zuerst den Flaschenvorrat an die bestehende Wurfeingabe anbinden und anschließend Wurfrichtung, Rotation, Splash und Trefferprüfung in kleinen Schritten ergänzen.
+Als Nächstes den ersten Teil von **Phase 5 – Vollständige Wurfmechanik** im Browser testen. Danach Rotation und Splash ergänzen und anschließend Trefferprüfung sowie Entfernen der geworfenen Flaschen umsetzen.
