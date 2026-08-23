@@ -64,13 +64,13 @@ Noch offen aus der technischen Grundlage:
 - Rotation und Splash: umgesetzt und getestet
 - Trefferprüfung und Entfernen: umgesetzt und getestet
 
-### Phase 6 – Normale Gegner vervollständigen
+### Phase 6 – Normale Gegner vervollständigen: abgeschlossen
 
 - kleinen Chicken-Typ ergänzen: umgesetzt und getestet
 - unterschiedliche Größe und Geschwindigkeit verwenden: umgesetzt und getestet
 - Hurt- und Dead-Zustände: Trefferzustand und Dead-Bild umgesetzt und getestet; Hurt-Bilder fehlen in den vorhandenen Assets
-- Treffer durch Flaschen und Sprung von oben umsetzen
-- seitlichen Sprung ausdrücklich nicht als Angriff werten
+- Treffer durch Flaschen und Sprung von oben: umgesetzt und getestet
+- seitlichen Sprung ausdrücklich nicht als Angriff werten: umgesetzt und getestet
 
 ### Phase 7 – Endboss
 
@@ -116,4 +116,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes mit **Phase 6 – Normale Gegner vervollständigen** beginnen. Zuerst den kleinen Chicken-Typ mit eigener Größe und Geschwindigkeit ergänzen.
+Als Nächstes mit **Phase 7 – Endboss** beginnen. Zuerst den Boss erreichbar machen und ihn bei Annäherung des Charakters aktivieren.

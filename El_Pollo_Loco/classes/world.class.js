@@ -72,15 +72,43 @@ class World {
         });
     }
 
-    /** Applies enemy collision damage to the character. */
+    /** Resolves collisions between the character and all living enemies. */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            const hitsLivingEnemy = !enemy.isDead() && this.character.isColliding(enemy);
-            if (hitsLivingEnemy && !this.character.isHurt()) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
-            }
+            this.handleEnemyCollision(enemy);
         });
+    }
+
+    /** Chooses between a jump attack and character damage. */
+    handleEnemyCollision(enemy) {
+        if (enemy.isDead() || !this.character.isColliding(enemy)) return;
+        if (this.isJumpAttack(enemy)) {
+            this.defeatEnemyByJump(enemy);
+            return;
+        }
+        this.damageCharacter();
+    }
+
+    /** Checks whether Pepe is descending onto a normal chicken from above. */
+    isJumpAttack(enemy) {
+        if (!(enemy instanceof Chicken) || !this.character.isAboveGround()) return false;
+        const characterBottom = this.character.y + this.character.height
+            - this.character.offset.bottom;
+        const enemyTop = enemy.y + enemy.offset.top;
+        return this.character.speedY < 0 && characterBottom <= enemyTop + 30;
+    }
+
+    /** Defeats a chicken and gives Pepe a small upward bounce. */
+    defeatEnemyByJump(enemy) {
+        enemy.hit();
+        this.character.speedY = 15;
+    }
+
+    /** Applies contact damage when the collision is not a jump attack. */
+    damageCharacter() {
+        if (this.character.isHurt()) return;
+        this.character.hit();
+        this.statusBar.setPercentage(this.character.energy);
     }
 
     /** Removes collected items and updates both collectible status bars. */
