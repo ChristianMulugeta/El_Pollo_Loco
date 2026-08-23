@@ -31,6 +31,8 @@ class World {
             this.checkCollisions();
             this.checkCollectibles();
             this.checkThrowObjects();
+            this.checkBottleHits();
+            this.removeFinishedBottles();
         }, 1000 / 25);
     }
 
@@ -48,6 +50,24 @@ class World {
         const bottle = new ThrowableObject(x, this.character.y + 100, facingLeft);
         this.throwableObjects.push(bottle);
         this.bottleStatusBar.decrease();
+    }
+
+    /** Damages the first enemy hit by each flying bottle. */
+    checkBottleHits() {
+        this.throwableObjects.forEach((bottle) => {
+            if (bottle.isSplashing) return;
+            const enemy = this.level.enemies.find((enemy) => bottle.isColliding(enemy));
+            if (!enemy) return;
+            enemy.hit();
+            bottle.startSplash();
+        });
+    }
+
+    /** Removes bottles after their splash animation has finished. */
+    removeFinishedBottles() {
+        this.throwableObjects = this.throwableObjects.filter((bottle) => {
+            return !bottle.splashComplete;
+        });
     }
 
     /** Applies enemy collision damage to the character. */

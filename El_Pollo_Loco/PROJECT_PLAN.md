@@ -56,13 +56,13 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächste Phasen
 
-### Phase 5 – Vollständige Wurfmechanik: begonnen
+### Phase 5 – Vollständige Wurfmechanik: abgeschlossen
 
 - Werfen an Flaschenvorrat binden: umgesetzt und getestet
 - Vorrat beim Werfen reduzieren: umgesetzt und getestet
 - Wurfrichtung an Blickrichtung anpassen: umgesetzt und getestet
 - Rotation und Splash: umgesetzt und getestet
-- Trefferprüfung und Entfernen ergänzen
+- Trefferprüfung und Entfernen: umgesetzt und getestet
 
 ### Phase 6 – Normale Gegner vervollständigen
 
@@ -116,4 +116,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes den ersten Teil von **Phase 5 – Vollständige Wurfmechanik** im Browser testen. Danach Rotation und Splash ergänzen und anschließend Trefferprüfung sowie Entfernen der geworfenen Flaschen umsetzen.
+Als Nächstes mit **Phase 6 – Normale Gegner vervollständigen** beginnen. Zuerst den kleinen Chicken-Typ mit eigener Größe und Geschwindigkeit ergänzen.
