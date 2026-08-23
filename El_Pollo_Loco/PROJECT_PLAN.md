@@ -76,7 +76,7 @@ Noch offen aus der technischen Grundlage:
 
 - Boss erreichbar machen und bei Annäherung aktivieren: umgesetzt und getestet
 - Alert- und Attack-Zustände: umgesetzt und getestet
-- Hurt- und Dead-Zustände ergänzen
+- Hurt- und Dead-Zustände: umgesetzt und getestet
 - Energie, Statusbar, Schaden und Siegbedingung ergänzen
 
 ### Phase 8 – Charakterzustände

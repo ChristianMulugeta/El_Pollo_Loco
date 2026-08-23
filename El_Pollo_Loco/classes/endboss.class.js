@@ -44,12 +44,26 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/3_attack/G20.png'
     ];
 
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ];
+
+    IMAGES_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
+    ];
+
     constructor() {
         super().loadImage("img/4_enemie_boss_chicken/1_walk/G1.png");
         this.loadImages([
             ...this.IMAGES_WALKING,
             ...this.IMAGES_ALERT,
-            ...this.IMAGES_ATTACKING
+            ...this.IMAGES_ATTACKING,
+            ...this.IMAGES_HURT,
+            ...this.IMAGES_DEAD
         ]);
         this.x = 2500;
         this.animate();
@@ -64,7 +78,8 @@ class Endboss extends MovableObject {
     /** Activates, selects a state, and moves the boss when appropriate. */
     updateMovement() {
         this.activateIfNearby();
-        if (!this.isActive || this.isDead() || this.state === 'alert') return;
+        if (!this.isActive || this.isDead() || this.isHurt()
+                || this.state === 'alert') return;
         this.updateCombatState();
         if (this.state === 'walk') this.moveLeft();
     }
@@ -76,9 +91,10 @@ class Endboss extends MovableObject {
         this.setBossState(nextState);
     }
 
-    /** Animates the current active boss state. */
+    /** Animates the current boss state by priority. */
     updateAnimation() {
-        if (!this.isActive || this.isDead()) return;
+        if (this.playPriorityAnimation()) return;
+        if (!this.isActive) return;
         if (this.state === 'alert') {
             this.playAlertAnimation();
             return;
@@ -86,6 +102,31 @@ class Endboss extends MovableObject {
         const images = this.state === 'attack'
             ? this.IMAGES_ATTACKING : this.IMAGES_WALKING;
         this.playAnimation(images);
+    }
+
+    /** Plays dead or hurt before regular combat animations. */
+    playPriorityAnimation() {
+        if (this.isDead()) {
+            this.playDeadAnimation();
+            return true;
+        }
+        if (!this.isHurt()) return false;
+        this.playStateAnimation('hurt', this.IMAGES_HURT);
+        return true;
+    }
+
+    /** Plays a looping animation after switching state. */
+    playStateAnimation(state, images) {
+        this.setBossState(state);
+        this.playAnimation(images);
+    }
+
+    /** Plays the dead sequence once and keeps its final frame. */
+    playDeadAnimation() {
+        this.setBossState('dead');
+        if (this.currentImage < this.IMAGES_DEAD.length) {
+            this.playAnimation(this.IMAGES_DEAD);
+        }
     }
 
     /** Plays the alert sequence once before the boss starts moving. */
@@ -102,6 +143,11 @@ class Endboss extends MovableObject {
         if (this.state === state) return;
         this.state = state;
         this.currentImage = 0;
+    }
+
+    /** Applies one bottle hit to the boss. */
+    hit() {
+        super.hit(20);
     }
 
     /** Activates the boss when Pepe enters its detection range. */
