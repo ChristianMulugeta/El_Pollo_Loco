@@ -8,7 +8,9 @@ class World {
     statusBar = new StatusBar();
     coinStatusBar = new CoinStatusBar();
     bottleStatusBar = new BottleStatusBar();
+    endbossStatusBar = new EndbossStatusBar();
     throwableObjects = [];
+    gameWon = false;
 
     /** Creates and starts a world for the given canvas and keyboard. */
     constructor(canvas, keyboard) {
@@ -34,6 +36,7 @@ class World {
             this.checkThrowObjects();
             this.checkBottleHits();
             this.removeFinishedBottles();
+            this.checkWinCondition();
         }, 1000 / 25);
     }
 
@@ -62,8 +65,27 @@ class World {
             });
             if (!enemy) return;
             enemy.hit();
+            this.updateEndbossStatus(enemy);
             bottle.startSplash();
         });
+    }
+
+    /** Updates the boss bar when the hit enemy is the endboss. */
+    updateEndbossStatus(enemy) {
+        if (enemy instanceof Endboss) {
+            this.endbossStatusBar.setPercentage(enemy.energy);
+        }
+    }
+
+    /** Stores the win condition after the endboss has died. */
+    checkWinCondition() {
+        const endboss = this.getEndboss();
+        if (endboss && endboss.isDead()) this.gameWon = true;
+    }
+
+    /** Returns the level's endboss. */
+    getEndboss() {
+        return this.level.enemies.find((enemy) => enemy instanceof Endboss);
     }
 
     /** Removes bottles after their splash animation has finished. */
@@ -153,6 +175,10 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
+        const endboss = this.getEndboss();
+        if (endboss && endboss.isActive) {
+            this.addToMap(this.endbossStatusBar);
+        }
     }
 
     /** Draws every object in the provided list. */

@@ -72,12 +72,12 @@ Noch offen aus der technischen Grundlage:
 - Treffer durch Flaschen und Sprung von oben: umgesetzt und getestet
 - seitlichen Sprung ausdrücklich nicht als Angriff werten: umgesetzt und getestet
 
-### Phase 7 – Endboss
+### Phase 7 – Endboss: abgeschlossen
 
 - Boss erreichbar machen und bei Annäherung aktivieren: umgesetzt und getestet
 - Alert- und Attack-Zustände: umgesetzt und getestet
 - Hurt- und Dead-Zustände: umgesetzt und getestet
-- Energie, Statusbar, Schaden und Siegbedingung ergänzen
+- Energie, Statusbar, Schaden und Siegbedingung: umgesetzt und getestet
 
 ### Phase 8 – Charakterzustände
 
@@ -117,4 +117,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes Hurt- und Dead-Zustände des Endbosses ergänzen. Danach Energie, Statusbar, Schaden und Siegbedingung umsetzen.
+Als Nächstes mit **Phase 8 – Charakterzustände** beginnen. Zuerst die Zustandspriorität des Charakters ordnen und die vorhandenen Idle-/Sleep-Assets prüfen.
