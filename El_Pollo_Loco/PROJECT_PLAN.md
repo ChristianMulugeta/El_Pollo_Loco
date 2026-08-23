@@ -81,7 +81,8 @@ Noch offen aus der technischen Grundlage:
 
 ### Phase 8 – Charakterzustände
 
-- Priorität Dead → Hurt → Jump → Walk → Idle → Sleep umsetzen
+- Priorität Dead → Hurt → Jump → Walk: umgesetzt und getestet
+- Priorität Idle → Sleep nach Bereitstellung der fehlenden Assets ergänzen
 - Idle- und Sleep-Zustand nach spätestens 15 Sekunden ergänzen
 - fehlende, freigegebene Idle-/Sleep-Assets bereitstellen
 
@@ -117,4 +118,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes mit **Phase 8 – Charakterzustände** beginnen. Zuerst die Zustandspriorität des Charakters ordnen und die vorhandenen Idle-/Sleep-Assets prüfen.
+Als Nächstes die Zustandspriorität **Dead → Hurt → Jump → Walk** im Browser testen. Danach geeignete Idle-/Sleep-Assets bereitstellen und die Inaktivitätslogik ergänzen.

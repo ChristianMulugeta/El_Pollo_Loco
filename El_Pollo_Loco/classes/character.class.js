@@ -57,51 +57,60 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /** Starts movement and state-dependent animation intervals. */
     animate() {
-
-        setInterval(() => {
-            if (this.isDead()) {
-                return;
-            }
-
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-
-            }
-            
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-
-            this.world.camera_x = -this.x + 100; // Kamera folgt dem Charakter
-        }, 1000 / 60); // 60 FPS
-
-        setInterval(() => {
-
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    // Walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
-            }
-        },4000 / 50);
+        setInterval(() => this.updateMovement(), 1000 / 60);
+        setInterval(() => this.updateAnimation(), 80);
     }
 
+    /** Processes movement, jumping, and the camera position. */
+    updateMovement() {
+        if (this.isDead()) return;
+        this.moveHorizontally();
+        this.jumpIfRequested();
+        this.world.camera_x = -this.x + 100;
+    }
+
+    /** Moves Pepe left or right within the level boundaries. */
+    moveHorizontally() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+    }
+
+    /** Starts a jump when requested from the ground. */
+    jumpIfRequested() {
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) this.jump();
+    }
+
+    /** Plays the highest-priority available animation. */
+    updateAnimation() {
+        const images = this.getCurrentAnimation();
+        if (images) this.playAnimation(images);
+    }
+
+    /** Resolves animation priority: dead, hurt, jump, then walk. */
+    getCurrentAnimation() {
+        if (this.isDead()) return this.IMAGES_DEAD;
+        if (this.isHurt()) return this.IMAGES_HURT;
+        if (this.isAboveGround()) return this.IMAGES_JUMPING;
+        if (this.isMoving()) return this.IMAGES_WALKING;
+        return null;
+    }
+
+    /** Checks whether a horizontal movement key is held. */
+    isMoving() {
+        return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    }
+
+    /** Gives Pepe upward velocity. */
     jump() {
-        this.speedY = 25 ; // Setzt die Geschwindigkeit nach oben
+        this.speedY = 25;
     }
 
 }
