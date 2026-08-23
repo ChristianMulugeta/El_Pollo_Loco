@@ -48,6 +48,17 @@
                 <button class="game-button" type="button" onclick="returnHome()">Home</button>
             </div>
         </section>
+        <nav class="touch-controls" aria-label="Touch controls">
+            <div class="touch-control-group">
+                <button class="touch-button" type="button" aria-label="Move left">&#9664;</button>
+                <button class="touch-button" type="button" aria-label="Move right">&#9654;</button>
+            </div>
+            <div class="touch-control-group">
+                <button class="touch-button touch-button--jump" type="button">Jump</button>
+                <button class="touch-button touch-button--throw" type="button"
+                    aria-label="Throw bottle"></button>
+            </div>
+        </nav>
         <dialog id="controls-dialog" class="controls-dialog" onclick="closeControlsOnBackdrop(event)">
             <h2>Controls</h2>
             <p><span>Move</span> Arrow keys or A / D</p>
