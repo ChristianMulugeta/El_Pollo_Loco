@@ -59,13 +59,13 @@ class Character extends MovableObject {
 
     /** Starts movement and state-dependent animation intervals. */
     animate() {
-        setInterval(() => this.updateMovement(), 1000 / 60);
-        setInterval(() => this.updateAnimation(), 80);
+        this.startInterval(() => this.updateMovement(), 1000 / 60);
+        this.startInterval(() => this.updateAnimation(), 80);
     }
 
     /** Processes movement, jumping, and the camera position. */
     updateMovement() {
-        if (this.isDead()) return;
+        if (this.isDead() || this.world.gameEnding) return;
         this.moveHorizontally();
         this.jumpIfRequested();
         this.world.camera_x = -this.x + 100;

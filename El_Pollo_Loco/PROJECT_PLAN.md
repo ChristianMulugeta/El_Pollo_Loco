@@ -86,13 +86,13 @@ Noch offen aus der technischen Grundlage:
 - Idle- und Sleep-Zustand nach spätestens 15 Sekunden ergänzen
 - fehlende, freigegebene Idle-/Sleep-Assets bereitstellen
 
-### Phase 9 – Gewinnen, Verlieren und Neustart
+### Phase 9 – Gewinnen, Verlieren und Neustart: abgeschlossen
 
-- Verlust bei leerer Lebensanzeige erkennen
-- Sieg nach Boss-Tod erkennen
-- Endscreens anzeigen
-- Spiellogik und Intervalle stoppen
-- Restart ohne Seitenreload und Rückkehr zum Home-Screen umsetzen
+- Verlust bei leerer Lebensanzeige erkennen: umgesetzt und getestet
+- Sieg nach Boss-Tod erkennen: umgesetzt und getestet
+- Endscreens anzeigen: umgesetzt und getestet
+- Spiellogik und Intervalle stoppen: umgesetzt und getestet
+- Restart ohne Seitenreload und Rückkehr zum Home-Screen: umgesetzt und getestet
 
 ### Phase 10 – Audio und Mute
 
@@ -118,4 +118,5 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes die Zustandspriorität **Dead → Hurt → Jump → Walk** im Browser testen. Danach geeignete Idle-/Sleep-Assets bereitstellen und die Inaktivitätslogik ergänzen.
+Als Nächstes geeignete Idle-/Sleep- und Audio-Assets bereitstellen. Bis dahin mit
+Phase 11 beginnen und die Touchsteuerung in einzeln testbaren Schritten ergänzen.

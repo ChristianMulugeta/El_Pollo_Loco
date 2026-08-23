@@ -47,6 +47,28 @@ canvas{
     gap: 16px;
 }
 
+.end-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+.result-image {
+    width: min(90%, 560px);
+    max-height: 300px;
+    object-fit: contain;
+}
+
+.end-actions {
+    display: flex;
+    gap: 16px;
+}
+
 .game-button {
     margin-top: 32px;
     padding: 10px 28px;

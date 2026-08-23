@@ -71,8 +71,8 @@ class Endboss extends MovableObject {
 
     /** Starts the boss movement and animation intervals. */
     animate() {
-        setInterval(() => this.updateMovement(), 1000 / 60);
-        setInterval(() => this.updateAnimation(), 1000 / 10);
+        this.startInterval(() => this.updateMovement(), 1000 / 60);
+        this.startInterval(() => this.updateAnimation(), 1000 / 10);
     }
 
     /** Activates, selects a state, and moves the boss when appropriate. */

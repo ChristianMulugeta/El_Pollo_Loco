@@ -36,8 +36,8 @@ class Chicken extends MovableObject {
 
     /** Starts movement and state-dependent animation intervals. */
     animate() {
-        setInterval(() => this.updateMovement(), 1000 / 60);
-        setInterval(() => this.updateAnimation(), 1000 / 8);
+        this.startInterval(() => this.updateMovement(), 1000 / 60);
+        this.startInterval(() => this.updateAnimation(), 1000 / 8);
     }
 
     /** Moves only living and currently unharmed chickens. */

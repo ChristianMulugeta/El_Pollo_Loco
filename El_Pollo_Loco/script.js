@@ -6,9 +6,44 @@ let keyboard = new Keyboard();
 /** Starts the game once and closes the start screen. */
 function startGame() {
     if (world) return;
+    keyboard = new Keyboard();
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     document.getElementById("start-screen").classList.add("hidden");
+}
+
+/** Displays the matching result image and end-screen actions. */
+function showEndScreen(gameWon) {
+    const resultImage = document.getElementById("result-image");
+    resultImage.src = gameWon ? "img/You won, you lost/You Won B.png"
+        : "img/9_intro_outro_screens/game_over/you lost.png";
+    resultImage.alt = gameWon ? "You won" : "You lost";
+    document.getElementById("end-screen").classList.remove("hidden");
+}
+
+/** Starts a fresh world without reloading the page. */
+function restartGame() {
+    resetGameView();
+    startGame();
+}
+
+/** Returns to the start screen without reloading the page. */
+function returnHome() {
+    resetGameView();
+    clearCanvas();
+    document.getElementById("start-screen").classList.remove("hidden");
+}
+
+/** Removes the finished world and hides its result screen. */
+function resetGameView() {
+    if (world) world.stop();
+    world = null;
+    document.getElementById("end-screen").classList.add("hidden");
+}
+
+/** Clears the last rendered game frame. */
+function clearCanvas() {
+    if (canvas) canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /** Opens the controls dialog. */

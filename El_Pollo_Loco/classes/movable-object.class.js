@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    intervalIds = [];
     offset = {
         top: 0,
         right: 0,
@@ -15,12 +16,25 @@ class MovableObject extends DrawableObject {
 
 
     applyGravity() {
-        setInterval(() => {
+        this.startInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+    }
+
+    /** Starts and stores an interval so it can be stopped with the game. */
+    startInterval(callback, delay) {
+        const intervalId = setInterval(callback, delay);
+        this.intervalIds.push(intervalId);
+        return intervalId;
+    }
+
+    /** Stops every recurring task owned by this object. */
+    stopIntervals() {
+        this.intervalIds.forEach((intervalId) => clearInterval(intervalId));
+        this.intervalIds = [];
     }
 
     isAboveGround() {

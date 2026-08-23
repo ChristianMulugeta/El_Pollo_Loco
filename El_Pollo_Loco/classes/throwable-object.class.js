@@ -38,8 +38,8 @@ class ThrowableObject extends MovableObject {
     /** Starts flight movement and rotation. */
     throw() {
         this.speedY = 30;
-        this.movementInterval = setInterval(() => this.moveThroughAir(), 40);
-        this.animationInterval = setInterval(() => {
+        this.movementInterval = this.startInterval(() => this.moveThroughAir(), 40);
+        this.animationInterval = this.startInterval(() => {
             this.playAnimation(BOTTLE_ROTATION_IMAGES);
         }, 80);
     }
@@ -65,7 +65,7 @@ class ThrowableObject extends MovableObject {
 
     /** Plays every splash frame once and marks the animation complete. */
     animateSplash() {
-        this.animationInterval = setInterval(() => {
+        this.animationInterval = this.startInterval(() => {
             if (this.currentImage >= BOTTLE_SPLASH_IMAGES.length) {
                 clearInterval(this.animationInterval);
                 this.splashComplete = true;

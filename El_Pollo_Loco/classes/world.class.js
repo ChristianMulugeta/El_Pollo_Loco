@@ -11,6 +11,10 @@ class World {
     endbossStatusBar = new EndbossStatusBar();
     throwableObjects = [];
     gameWon = false;
+    gameEnding = false;
+    runIntervalId;
+    animationFrameId;
+    endTimeoutId;
 
     /** Creates and starts a world for the given canvas and keyboard. */
     constructor(canvas, keyboard) {
@@ -30,13 +34,14 @@ class World {
 
     /** Starts the recurring collision and input checks. */
     run() {
-        setInterval(() => {
+        this.runIntervalId = setInterval(() => {
+            if (this.gameEnding) return;
             this.checkCollisions();
             this.checkCollectibles();
             this.checkThrowObjects();
             this.checkBottleHits();
             this.removeFinishedBottles();
-            this.checkWinCondition();
+            this.checkGameEnd();
         }, 1000 / 25);
     }
 
@@ -77,10 +82,24 @@ class World {
         }
     }
 
-    /** Stores the win condition after the endboss has died. */
-    checkWinCondition() {
+    /** Starts the end sequence after victory or defeat. */
+    checkGameEnd() {
         const endboss = this.getEndboss();
-        if (endboss && endboss.isDead()) this.gameWon = true;
+        if (this.character.isDead()) return this.prepareGameEnd(false);
+        if (endboss && endboss.isDead()) this.prepareGameEnd(true);
+    }
+
+    /** Allows the final death animation to play before stopping the game. */
+    prepareGameEnd(gameWon) {
+        this.gameWon = gameWon;
+        this.gameEnding = true;
+        this.endTimeoutId = setTimeout(() => this.finishGame(), 800);
+    }
+
+    /** Stops all activity and opens the matching end screen. */
+    finishGame() {
+        this.stop();
+        showEndScreen(this.gameWon);
     }
 
     /** Returns the level's endboss. */
@@ -145,6 +164,7 @@ class World {
         return items.filter((item) => {
             if (!this.character.isColliding(item)) return true;
             statusBar.increase();
+            item.stopIntervals();
             return false;
         });
     }
@@ -156,7 +176,23 @@ class World {
         this.drawWorldObjects();
         this.ctx.translate(-this.camera_x, 0);
         this.drawStatusBars();
-        requestAnimationFrame(() => this.draw());
+        this.animationFrameId = requestAnimationFrame(() => this.draw());
+    }
+
+    /** Stops the world loop and every active game object's intervals. */
+    stop() {
+        clearInterval(this.runIntervalId);
+        clearTimeout(this.endTimeoutId);
+        cancelAnimationFrame(this.animationFrameId);
+        this.getGameObjects().forEach((object) => object.stopIntervals());
+    }
+
+    /** Returns all objects which can own recurring game tasks. */
+    getGameObjects() {
+        return [
+            this.character, ...this.level.enemies, ...this.level.clouds,
+            ...this.level.coins, ...this.level.bottles, ...this.throwableObjects
+        ];
     }
 
     /** Draws all objects positioned inside the game world. */

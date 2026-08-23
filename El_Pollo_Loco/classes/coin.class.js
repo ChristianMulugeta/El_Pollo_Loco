@@ -19,7 +19,7 @@ class Coin extends MovableObject {
 
     /** Alternates between the available coin images. */
     animate() {
-        setInterval(() => {
+        this.startInterval(() => {
             this.playAnimation(this.IMAGES);
         }, 200);
     }

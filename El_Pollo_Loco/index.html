@@ -41,6 +41,13 @@
                 <button class="game-button" type="button" onclick="showControls()">Controls</button>
             </div>
         </section>
+        <section id="end-screen" class="end-screen hidden">
+            <img id="result-image" class="result-image" src="" alt="">
+            <div class="end-actions">
+                <button class="game-button" type="button" onclick="restartGame()">Play Again</button>
+                <button class="game-button" type="button" onclick="returnHome()">Home</button>
+            </div>
+        </section>
         <dialog id="controls-dialog" class="controls-dialog" onclick="closeControlsOnBackdrop(event)">
             <h2>Controls</h2>
             <p><span>Move</span> Arrow keys or A / D</p>
