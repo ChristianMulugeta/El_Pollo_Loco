@@ -75,7 +75,8 @@ Noch offen aus der technischen Grundlage:
 ### Phase 7 – Endboss
 
 - Boss erreichbar machen und bei Annäherung aktivieren: umgesetzt und getestet
-- Alert-, Attack-, Hurt- und Dead-Zustände ergänzen
+- Alert- und Attack-Zustände: umgesetzt und getestet
+- Hurt- und Dead-Zustände ergänzen
 - Energie, Statusbar, Schaden und Siegbedingung ergänzen
 
 ### Phase 8 – Charakterzustände
@@ -116,4 +117,4 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes Erreichbarkeit und Aktivierung des Endbosses im Browser testen. Danach Alert- und Attack-Zustände ergänzen.
+Als Nächstes Hurt- und Dead-Zustände des Endbosses ergänzen. Danach Energie, Statusbar, Schaden und Siegbedingung umsetzen.
