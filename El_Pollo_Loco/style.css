@@ -109,6 +109,29 @@ canvas{
     letter-spacing: 1px;
 }
 
+.orientation-message {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffe0a3;
+    color: #5b2108;
+    font-size: 38px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.orientation-message p {
+    margin: 8px 24px;
+}
+
+.orientation-icon {
+    font: 72px Arial, sans-serif;
+}
+
 .game-button {
     margin-top: 32px;
     padding: 10px 28px;
@@ -196,6 +219,12 @@ canvas{
 
 @media (pointer: coarse) {
     .touch-controls {
+        display: flex;
+    }
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+    .orientation-message {
         display: flex;
     }
 }
