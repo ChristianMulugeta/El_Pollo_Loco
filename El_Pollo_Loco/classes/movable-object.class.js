@@ -14,7 +14,7 @@ class MovableObject extends DrawableObject {
         left: 0
     };
 
-
+    /** Applies vertical acceleration while the object is airborne. */
     applyGravity() {
         this.startInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -37,54 +37,59 @@ class MovableObject extends DrawableObject {
         this.intervalIds = [];
     }
 
+    /** Checks whether this object should continue falling. */
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // ThrowableObjectsObjects should always fall
-            return true;
-        } else {
-            return this.y < 120;
-        }
+        return this instanceof ThrowableObject || this.y < 120;
     }
 
-    // character.isColliding(chicken) => true / false
-    isColliding(mo) {
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    /** Checks whether the visible hitboxes of two objects overlap. */
+    isColliding(movableObject) {
+        return this.x + this.width - this.offset.right
+                > movableObject.x + movableObject.offset.left
+            && this.y + this.height - this.offset.bottom
+                > movableObject.y + movableObject.offset.top
+            && this.x + this.offset.left
+                < movableObject.x + movableObject.width - movableObject.offset.right
+            && this.y + this.offset.top
+                < movableObject.y + movableObject.height - movableObject.offset.bottom;
     }
 
+    /** Reduces energy and records when a surviving object was hit. */
     hit(damage = 5) {
         this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
-        }else {
-            this.lastHit = new Date().getTime();
+        } else {
+            this.lastHit = Date.now();
         }
     }
 
+    /** Checks whether the latest hit is still inside the hurt cooldown. */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
-        timepassed = timepassed / 1000; // Differenz in s
-        return timepassed < 1;
+        const secondsSinceHit = (Date.now() - this.lastHit) / 1000;
+        return secondsSinceHit < 1;
     }
 
+    /** Checks whether the object has no energy left. */
     isDead() {
-        return this.energy == 0;
+        return this.energy === 0;
     }
 
+    /** Moves the object right by its current speed. */
     moveRight() {
-        this.x += this.speed; // Bewegt das Objekt nach rechts
+        this.x += this.speed;
     }
 
+    /** Moves the object left by its current speed. */
     moveLeft() {
-            this.x -= this.speed; // Bewegt das Objekt nach links
+        this.x -= this.speed;
     }
 
+    /** Displays the next image of a looping animation. */
     playAnimation(images) {
-        let index = this.currentImage % images.length;
-        let path = images[index];
-        this.img = this.imageCache[path];
+        const imageIndex = this.currentImage % images.length;
+        const imagePath = images[imageIndex];
+        this.img = this.imageCache[imagePath];
         this.currentImage++;
     }
-
 }

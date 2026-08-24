@@ -56,8 +56,10 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+    /** Creates the endboss and preloads all combat animations. */
     constructor() {
-        super().loadImage("img/4_enemie_boss_chicken/1_walk/G1.png");
+        super();
+        this.loadImage("img/4_enemie_boss_chicken/1_walk/G1.png");
         this.loadImages([
             ...this.IMAGES_WALKING,
             ...this.IMAGES_ALERT,

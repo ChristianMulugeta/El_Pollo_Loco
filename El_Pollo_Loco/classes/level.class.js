@@ -4,7 +4,7 @@ class Level {
     backgroundObjects;
     coins;
     bottles;
-    level_end_x = 2250;
+    levelEndX = 2250;
 
     /** Creates a level with moving, background, and collectible objects. */
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {

@@ -1,6 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+const GAME_KEY_BY_CODE = {
+    ArrowRight: "RIGHT",
+    KeyD: "RIGHT",
+    ArrowLeft: "LEFT",
+    KeyA: "LEFT",
+    Space: "SPACE",
+    KeyR: "R"
+};
+const SCROLL_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"];
 
 
 /** Starts the game once and closes the start screen. */
@@ -86,46 +95,25 @@ function closeControlsOnBackdrop(event) {
     if (outsideX || outsideY) closeControls();
 }
 
-window.addEventListener("keydown", (e) => {
-    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) {
-        e.preventDefault();
-    }
-    if (e.code == "ArrowRight" || e.code == "KeyD") {
-        keyboard.RIGHT = true;
-    }
-    if (e.code == "ArrowLeft" || e.code == "KeyA") {
-        keyboard.LEFT = true;
-    }
-    if (e.code == "ArrowUp" || e.code == "KeyW") {
-        keyboard.UP = true;
-    }
-    if (e.code == "ArrowDown" || e.code == "KeyS") {
-        keyboard.DOWN = true;
-    }
-    if (e.code == "Space") {
-        keyboard.SPACE = true;
-    }
-    if (e.code == "KeyR" && !e.repeat) {
-        keyboard.R = true;
-    }
-});
+/** Prevents page scrolling and activates the matching game control. */
+function handleKeyDown(event) {
+    if (SCROLL_KEYS.includes(event.code)) event.preventDefault();
+    updateKeyboardState(event, true);
+}
 
-window.addEventListener("keyup", (e) => {
-    if (e.code == "ArrowRight" || e.code == "KeyD") {
-        keyboard.RIGHT = false;
-    }
-    if (e.code == "ArrowLeft" || e.code == "KeyA") {
-        keyboard.LEFT = false;
-    }
-    if (e.code == "ArrowUp" || e.code == "KeyW") {
-        keyboard.UP = false;
-    }
-    if (e.code == "ArrowDown" || e.code == "KeyS") {
-        keyboard.DOWN = false;
-    }
-    if (e.code == "Space") {
-        keyboard.SPACE = false;
-    }
-});
+/** Releases the game control assigned to the keyboard event. */
+function handleKeyUp(event) {
+    updateKeyboardState(event, false);
+}
+
+/** Maps a browser key code to one property of the shared keyboard state. */
+function updateKeyboardState(event, isPressed) {
+    const gameKey = GAME_KEY_BY_CODE[event.code];
+    if (!gameKey || event.repeat) return;
+    keyboard[gameKey] = isPressed;
+}
+
+window.addEventListener("keydown", handleKeyDown);
+window.addEventListener("keyup", handleKeyUp);
 
 window.addEventListener("load", initializeTouchControls);

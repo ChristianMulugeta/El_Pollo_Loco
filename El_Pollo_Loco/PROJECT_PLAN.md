@@ -37,7 +37,7 @@
 
 Noch offen aus der technischen Grundlage:
 
-- Intervall-IDs zentral erfassen und für Game Over beziehungsweise Restart stoppen
+- Intervall-IDs zentral erfassen und für Game Over beziehungsweise Restart stoppen: umgesetzt und getestet
 - einen optionalen, standardmäßig deaktivierten Hitbox-Debugmodus zum Feinjustieren erwägen
 
 ### Phase 3 – Startscreen und Spielerklärung: abgeschlossen
@@ -101,22 +101,24 @@ Noch offen aus der technischen Grundlage:
 - zentralen Mute-Schalter erstellen
 - Mute-Status in `localStorage` speichern
 
-### Phase 11 – Mobile Bedienung und Responsiveness
+### Phase 11 – Mobile Bedienung und Responsiveness: abgeschlossen
 
-- Touchbuttons für Bewegung, Sprung und Wurf ergänzen
-- Kontextmenü bei langem Drücken verhindern
-- Querformat optimieren und Hochformat-Hinweis anzeigen
-- Canvas-Seitenverhältnis und scrollfreie Darstellung sicherstellen
+- Touchbuttons für Bewegung, Sprung und Wurf ergänzen: umgesetzt und getestet
+- Kontextmenü bei langem Drücken verhindern: umgesetzt und getestet
+- Hochformat-Hinweis anzeigen: umgesetzt und getestet
+- Querformat optimieren: umgesetzt und getestet
+- Canvas-Seitenverhältnis und scrollfreie Darstellung sicherstellen: umgesetzt und getestet
 
-### Phase 12 – Abschluss und Abnahme
+### Phase 12 – Abschluss und Abnahme: abgeschlossen
 
-- Impressumsseite mit Musterdaten erstellen
-- JSDoc, Funktionslängen und Namen prüfen
-- Links, Buttons, Screens und Konsole prüfen
-- Desktop-, Smartphone- und Tablet-Testmatrix durchführen
+- Impressumsseite mit Musterdaten erstellen: umgesetzt und getestet
+- JSDoc, Funktionslängen und Namen prüfen: umgesetzt und getestet
+- Links, Buttons, Screens und Konsole prüfen: umgesetzt und getestet
+- Desktop-, Smartphone- und Tablet-Testmatrix durchführen: umgesetzt und getestet
 - optionale Story und Fullscreen erst nach den Pflichtpunkten ergänzen
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes geeignete Idle-/Sleep- und Audio-Assets bereitstellen. Bis dahin mit
-Phase 11 beginnen und die Touchsteuerung in einzeln testbaren Schritten ergänzen.
+Als Nächstes geeignete Idle-/Sleep- und Audio-Assets für Phase 8 beziehungsweise
+Phase 10 bereitstellen. Die optionale Story und Fullscreen-Funktion bleiben bis
+nach den Pflichtpunkten zurückgestellt.

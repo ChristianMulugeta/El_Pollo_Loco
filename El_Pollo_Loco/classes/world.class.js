@@ -2,9 +2,9 @@ class World {
     character = new Character();
     level = createLevel1();
     canvas;
-    ctx;
+    context;
     keyboard;
-    camera_x = 0;
+    cameraX = 0;
     statusBar = new StatusBar();
     coinStatusBar = new CoinStatusBar();
     bottleStatusBar = new BottleStatusBar();
@@ -18,7 +18,7 @@ class World {
 
     /** Creates and starts a world for the given canvas and keyboard. */
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        this.context = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -38,7 +38,7 @@ class World {
             if (this.gameEnding) return;
             this.checkCollisions();
             this.checkCollectibles();
-            this.checkThrowObjects();
+            this.checkThrowInput();
             this.checkBottleHits();
             this.removeFinishedBottles();
             this.checkGameEnd();
@@ -46,7 +46,7 @@ class World {
     }
 
     /** Creates a throwable bottle when the throw key is pressed. */
-    checkThrowObjects() {
+    checkThrowInput() {
         if (!this.keyboard.R) return;
         if (this.bottleStatusBar.percentage > 0) this.throwBottle();
         this.keyboard.R = false;
@@ -171,10 +171,10 @@ class World {
 
     /** Draws one frame and schedules the next one. */
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.translate(this.cameraX, 0);
         this.drawWorldObjects();
-        this.ctx.translate(-this.camera_x, 0);
+        this.context.translate(-this.cameraX, 0);
         this.drawStatusBars();
         this.animationFrameId = requestAnimationFrame(() => this.draw());
     }
@@ -197,49 +197,49 @@ class World {
 
     /** Draws all objects positioned inside the game world. */
     drawWorldObjects() {
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.throwableObjects);
+        this.drawObjects(this.level.backgroundObjects);
+        this.drawObject(this.character);
+        this.drawObjects(this.level.clouds);
+        this.drawObjects(this.level.enemies);
+        this.drawObjects(this.level.coins);
+        this.drawObjects(this.level.bottles);
+        this.drawObjects(this.throwableObjects);
     }
 
     /** Draws all status bars independently from the camera. */
     drawStatusBars() {
-        this.addToMap(this.statusBar);
-        this.addToMap(this.coinStatusBar);
-        this.addToMap(this.bottleStatusBar);
+        this.drawObject(this.statusBar);
+        this.drawObject(this.coinStatusBar);
+        this.drawObject(this.bottleStatusBar);
         const endboss = this.getEndboss();
         if (endboss && endboss.isActive) {
-            this.addToMap(this.endbossStatusBar);
+            this.drawObject(this.endbossStatusBar);
         }
     }
 
     /** Draws every object in the provided list. */
-    addObjectsToMap(objects) {
-        objects.forEach((object) => this.addToMap(object));
+    drawObjects(objects) {
+        objects.forEach((object) => this.drawObject(object));
     }
 
     /** Draws one object and mirrors it when required. */
-    addToMap(movableObject) {
-        if (movableObject.otherDirection) this.flipImage(movableObject);
-        movableObject.draw(this.ctx);
-        if (movableObject.otherDirection) this.flipImageBack(movableObject);
+    drawObject(drawableObject) {
+        if (drawableObject.otherDirection) this.flipImage(drawableObject);
+        drawableObject.draw(this.context);
+        if (drawableObject.otherDirection) this.flipImageBack(drawableObject);
     }
 
     /** Mirrors an object's canvas context horizontally. */
-    flipImage(movableObject) {
-        this.ctx.save();
-        this.ctx.translate(movableObject.width, 0);
-        this.ctx.scale(-1, 1);
-        movableObject.x *= -1;
+    flipImage(drawableObject) {
+        this.context.save();
+        this.context.translate(drawableObject.width, 0);
+        this.context.scale(-1, 1);
+        drawableObject.x *= -1;
     }
 
     /** Restores an object and the canvas after mirrored drawing. */
-    flipImageBack(movableObject) {
-        this.ctx.restore();
-        movableObject.x *= -1;
+    flipImageBack(drawableObject) {
+        this.context.restore();
+        drawableObject.x *= -1;
     }
 }

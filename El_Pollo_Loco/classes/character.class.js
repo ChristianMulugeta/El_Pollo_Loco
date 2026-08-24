@@ -47,8 +47,10 @@ class Character extends MovableObject {
     ];
 
     world;
+    /** Creates Pepe and starts gravity, movement, and animation. */
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-22.png');
+        super();
+        this.loadImage('img/2_character_pepe/2_walk/W-22.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -68,12 +70,12 @@ class Character extends MovableObject {
         if (this.isDead() || this.world.gameEnding) return;
         this.moveHorizontally();
         this.jumpIfRequested();
-        this.world.camera_x = -this.x + 100;
+        this.world.cameraX = -this.x + 100;
     }
 
     /** Moves Pepe left or right within the level boundaries. */
     moveHorizontally() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
             this.moveRight();
             this.otherDirection = false;
         }
