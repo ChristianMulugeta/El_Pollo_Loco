@@ -159,5 +159,6 @@ class Endboss extends MovableObject {
         if (distance >= this.activationDistance) return;
         this.isActive = true;
         this.setBossState('alert');
+        this.world.playSound(GAME_SOUNDS.ENDBOSS);
     }
 }

@@ -113,6 +113,7 @@ class Character extends MovableObject {
     /** Gives Pepe upward velocity. */
     jump() {
         this.speedY = 25;
+        this.world.playSound(GAME_SOUNDS.JUMP);
     }
 
 }

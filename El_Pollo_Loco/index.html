@@ -22,6 +22,7 @@
     <script src="classes/world.class.js"></script>
     <script src="classes/background-object.class.js"></script>
     <script src="classes/keyboard.class.js"></script>
+    <script src="classes/audio-manager.class.js"></script>
     <script src="classes/level.class.js"></script>
     <script src="classes/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
@@ -35,11 +36,17 @@
         <canvas id="canvas" width="720" height="480">
             Your browser does not support the canvas element.
         </canvas>
+        <button id="mute-button" class="mute-button" type="button"
+            onclick="toggleMute()" aria-pressed="false" aria-label="Mute sound"
+            title="Mute sound">&#128266;</button>
         <section id="start-screen" class="start-screen">
             <div class="start-actions">
                 <button class="game-button" type="button" onclick="startGame()">Start Game</button>
                 <button class="game-button" type="button" onclick="showControls()">Controls</button>
             </div>
+            <footer class="site-footer">
+                <a class="game-button" href="imprint.html">Legal Notice</a>
+            </footer>
         </section>
         <section id="end-screen" class="end-screen hidden">
             <img id="result-image" class="result-image" alt="">
@@ -48,7 +55,7 @@
                 <button class="game-button" type="button" onclick="returnHome()">Home</button>
             </div>
         </section>
-        <nav class="touch-controls" aria-label="Touch controls">
+        <nav class="touch-controls hidden" aria-label="Touch controls">
             <div class="touch-control-group">
                 <button class="touch-button" type="button" data-key="LEFT"
                     aria-label="Move left">&#9664;</button>
@@ -74,8 +81,5 @@
             <button class="game-button" type="button" onclick="closeControls()">Close</button>
         </dialog>
     </main>
-    <footer class="site-footer">
-        <a href="imprint.html">Legal Notice</a>
-    </footer>
 </body>
 </html>

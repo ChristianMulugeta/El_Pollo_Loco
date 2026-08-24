@@ -94,16 +94,16 @@ Noch offen aus der technischen Grundlage:
 - Spiellogik und Intervalle stoppen: umgesetzt und getestet
 - Restart ohne Seitenreload und Rückkehr zum Home-Screen: umgesetzt und getestet
 
-### Phase 10 – Audio und Mute
+### Phase 10 – Audio und Mute: abgeschlossen
 
-- freigegebene lokale Audiodateien bereitstellen
-- Hintergrundmusik und Ereignissounds ergänzen
-- zentralen Mute-Schalter erstellen
-- Mute-Status in `localStorage` speichern
+- freigegebene lokale Audiodateien bereitstellen: umgesetzt und getestet
+- Hintergrundmusik sowie Sounds für Sprung, Coin, Pepe-Schaden, Chicken-Sprungangriff und Endboss ergänzen: umgesetzt und getestet
+- zentralen Mute-Schalter erstellen: umgesetzt und getestet
+- Mute-Status in `localStorage` speichern: umgesetzt und getestet
 
 ### Phase 11 – Mobile Bedienung und Responsiveness: abgeschlossen
 
-- Touchbuttons für Bewegung, Sprung und Wurf ergänzen: umgesetzt und getestet
+- Touchbuttons für Bewegung, Sprung und Wurf ergänzen und auf das laufende Spiel begrenzen: umgesetzt und getestet
 - Kontextmenü bei langem Drücken verhindern: umgesetzt und getestet
 - Hochformat-Hinweis anzeigen: umgesetzt und getestet
 - Querformat optimieren: umgesetzt und getestet
@@ -119,6 +119,6 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes geeignete Idle-/Sleep- und Audio-Assets für Phase 8 beziehungsweise
-Phase 10 bereitstellen. Die optionale Story und Fullscreen-Funktion bleiben bis
-nach den Pflichtpunkten zurückgestellt.
+Als Nächstes geeignete Idle-/Sleep-Assets für Phase 8 bereitstellen und die
+Zustände nach spätestens 15 Sekunden ergänzen. Die optionale Story und
+Fullscreen-Funktion bleiben bis nach den Pflichtpunkten zurückgestellt.

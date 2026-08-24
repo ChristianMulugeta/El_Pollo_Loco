@@ -38,6 +38,26 @@ canvas{
     aspect-ratio: 3 / 2;
 }
 
+.mute-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 4;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 3px solid #7b310c;
+    border-radius: 50%;
+    background-color: rgba(255, 202, 40, 0.9);
+    font: 28px Arial, sans-serif;
+    cursor: pointer;
+}
+
+.mute-button:hover {
+    background-color: #ffe082;
+    transform: scale(1.04);
+}
+
 .start-screen {
     position: absolute;
     inset: 0;
@@ -83,6 +103,10 @@ canvas{
     pointer-events: none;
 }
 
+.touch-controls.hidden {
+    display: none;
+}
+
 .touch-control-group {
     display: flex;
     gap: 20px;
@@ -117,7 +141,7 @@ canvas{
 .orientation-message {
     position: absolute;
     inset: 0;
-    z-index: 3;
+    z-index: 5;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -199,22 +223,30 @@ canvas{
 }
 
 .site-footer {
-    position: fixed;
+    position: absolute;
+    left: 50%;
     bottom: 12px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    background-color: rgba(255, 224, 163, 0.9);
-    font: 20px Arial, sans-serif;
+    z-index: 4;
+    transform: translateX(-50%);
 }
 
-.site-footer a,
 .legal-content a {
     color: #5b2108;
 }
 
-.site-footer a:hover,
 .legal-content a:hover {
     color: #a74412;
+}
+
+.site-footer .game-button {
+    display: inline-block;
+    margin: 0;
+    padding: 6px 16.8px;
+    border-width: 1.8px;
+    border-radius: 7.2px;
+    font-size: 19.2px;
+    letter-spacing: 1.2px;
+    text-decoration: none;
 }
 
 .legal-page {
@@ -289,6 +321,10 @@ canvas{
 
     .legal-content h1 {
         font-size: 46px;
+    }
+
+    .site-footer {
+        display: none;
     }
 }
 

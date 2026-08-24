@@ -4,6 +4,7 @@ class World {
     canvas;
     context;
     keyboard;
+    audioManager;
     cameraX = 0;
     statusBar = new StatusBar();
     coinStatusBar = new CoinStatusBar();
@@ -16,11 +17,12 @@ class World {
     animationFrameId;
     endTimeoutId;
 
-    /** Creates and starts a world for the given canvas and keyboard. */
-    constructor(canvas, keyboard) {
+    /** Creates and starts a world with input and audio services. */
+    constructor(canvas, keyboard, audioManager) {
         this.context = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.audioManager = audioManager;
         this.draw();
         this.setWorld();
         this.run();
@@ -43,6 +45,11 @@ class World {
             this.removeFinishedBottles();
             this.checkGameEnd();
         }, 1000 / 25);
+    }
+
+    /** Plays one named sound through the shared audio manager. */
+    playSound(name) {
+        this.audioManager.play(name);
     }
 
     /** Creates a throwable bottle when the throw key is pressed. */
@@ -143,6 +150,7 @@ class World {
     /** Defeats a chicken and gives Pepe a small upward bounce. */
     defeatEnemyByJump(enemy) {
         enemy.hit();
+        this.playSound(GAME_SOUNDS.CHICKEN_HURT);
         this.character.speedY = 15;
     }
 
@@ -150,20 +158,24 @@ class World {
     damageCharacter() {
         if (this.character.isHurt()) return;
         this.character.hit();
+        this.playSound(GAME_SOUNDS.HURT);
         this.statusBar.setPercentage(this.character.energy);
     }
 
     /** Removes collected items and updates both collectible status bars. */
     checkCollectibles() {
-        this.level.coins = this.collectItems(this.level.coins, this.coinStatusBar);
+        this.level.coins = this.collectItems(
+            this.level.coins, this.coinStatusBar, GAME_SOUNDS.COIN
+        );
         this.level.bottles = this.collectItems(this.level.bottles, this.bottleStatusBar);
     }
 
     /** Returns all items that have not collided with the character. */
-    collectItems(items, statusBar) {
+    collectItems(items, statusBar, soundName) {
         return items.filter((item) => {
             if (!this.character.isColliding(item)) return true;
             statusBar.increase();
+            if (soundName) this.playSound(soundName);
             item.stopIntervals();
             return false;
         });
