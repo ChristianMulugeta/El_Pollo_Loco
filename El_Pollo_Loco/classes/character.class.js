@@ -10,6 +10,33 @@ class Character extends MovableObject {
         left: 30
     };
     speed = 5;
+    inactivityTime = 15000;
+    IMAGES_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-11.png',
+        'img/2_character_pepe/1_idle/idle/I-12.png',
+        'img/2_character_pepe/1_idle/idle/I-13.png',
+        'img/2_character_pepe/1_idle/idle/I-14.png',
+        'img/2_character_pepe/1_idle/idle/I-15.png',
+        'img/2_character_pepe/1_idle/idle/I-16.png',
+        'img/2_character_pepe/1_idle/idle/I-17.png',
+        'img/2_character_pepe/1_idle/idle/I-18.png',
+        'img/2_character_pepe/1_idle/idle/I-19.png',
+        'img/2_character_pepe/1_idle/idle/I-20.png'
+    ];
+
+    IMAGES_LONG_IDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-21.png',
+        'img/2_character_pepe/1_idle/long_idle/I-22.png',
+        'img/2_character_pepe/1_idle/long_idle/I-23.png',
+        'img/2_character_pepe/1_idle/long_idle/I-24.png',
+        'img/2_character_pepe/1_idle/long_idle/I-25.png',
+        'img/2_character_pepe/1_idle/long_idle/I-26.png',
+        'img/2_character_pepe/1_idle/long_idle/I-27.png',
+        'img/2_character_pepe/1_idle/long_idle/I-28.png',
+        'img/2_character_pepe/1_idle/long_idle/I-29.png',
+        'img/2_character_pepe/1_idle/long_idle/I-30.png'
+    ];
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-22.png',
         'img/2_character_pepe/2_walk/W-23.png',
@@ -51,6 +78,8 @@ class Character extends MovableObject {
     constructor() {
         super();
         this.loadImage('img/2_character_pepe/2_walk/W-22.png');
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -96,13 +125,19 @@ class Character extends MovableObject {
         if (images) this.playAnimation(images);
     }
 
-    /** Resolves animation priority: dead, hurt, jump, then walk. */
+    /** Resolves animation priority from dead through sleep. */
     getCurrentAnimation() {
         if (this.isDead()) return this.IMAGES_DEAD;
         if (this.isHurt()) return this.IMAGES_HURT;
         if (this.isAboveGround()) return this.IMAGES_JUMPING;
         if (this.isMoving()) return this.IMAGES_WALKING;
-        return null;
+        if (this.isLongIdle()) return this.IMAGES_LONG_IDLE;
+        return this.IMAGES_IDLE;
+    }
+
+    /** Checks whether Pepe has received no input for 15 seconds. */
+    isLongIdle() {
+        return Date.now() - this.world.keyboard.lastInput >= this.inactivityTime;
     }
 
     /** Checks whether a horizontal movement key is held. */

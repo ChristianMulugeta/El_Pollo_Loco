@@ -44,6 +44,7 @@ function startGame() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard, audioManager);
     document.getElementById("start-screen").classList.add("hidden");
+    setSettingsVisible(true);
     setTouchControlsVisible(true);
     audioManager.play(GAME_SOUNDS.MUSIC);
 }
@@ -56,6 +57,8 @@ function showEndScreen(gameWon) {
         : "img/9_intro_outro_screens/game_over/you lost.png";
     resultImage.alt = gameWon ? "You won" : "You lost";
     document.getElementById("end-screen").classList.remove("hidden");
+    closePauseMenu();
+    setSettingsVisible(false);
     setTouchControlsVisible(false);
 }
 
@@ -77,8 +80,54 @@ function resetGameView() {
     if (world) world.stop();
     audioManager.stopAll();
     world = null;
+    closePauseMenu();
+    setSettingsVisible(false);
     document.getElementById("end-screen").classList.add("hidden");
     setTouchControlsVisible(false);
+}
+
+/** Shows the settings button only while a game is active. */
+function setSettingsVisible(isVisible) {
+    document.getElementById("settings-button").classList.toggle("hidden", !isVisible);
+}
+
+/** Pauses the game and opens its settings overlay. */
+function pauseGame() {
+    if (!world || world.gameEnding) return;
+    world.setPaused(true);
+    releaseGameKeys();
+    audioManager.pauseAll();
+    document.getElementById("pause-screen").classList.remove("hidden");
+}
+
+/** Closes the settings overlay and continues the game. */
+function resumeGame() {
+    if (!world) return;
+    releaseGameKeys();
+    world.setPaused(false);
+    keyboard.recordInput();
+    closePauseMenu();
+    audioManager.resume(GAME_SOUNDS.MUSIC);
+}
+
+/** Hides all parts of the pause overlay. */
+function closePauseMenu() {
+    document.getElementById("pause-screen").classList.add("hidden");
+}
+
+/** Releases held controls so movement cannot stick after pausing. */
+function releaseGameKeys() {
+    Object.keys(GAME_KEY_BY_CODE).forEach((code) => {
+        keyboard[GAME_KEY_BY_CODE[code]] = false;
+    });
+}
+
+/** Leaves the pause menu and starts the defeat sequence. */
+function giveUpGame() {
+    if (!world) return;
+    closePauseMenu();
+    audioManager.resume(GAME_SOUNDS.MUSIC);
+    world.giveUp();
 }
 
 /** Shows touch controls only while a game is running. */
@@ -111,6 +160,7 @@ function bindTouchButton(button) {
 function updateTouchKey(event, isPressed) {
     event.preventDefault();
     keyboard[event.currentTarget.dataset.key] = isPressed;
+    keyboard.recordInput();
 }
 
 /** Restores the mute button from the persisted audio state. */
@@ -169,6 +219,7 @@ function updateKeyboardState(event, isPressed) {
     const gameKey = GAME_KEY_BY_CODE[event.code];
     if (!gameKey || event.repeat) return;
     keyboard[gameKey] = isPressed;
+    keyboard.recordInput();
 }
 
 window.addEventListener("keydown", handleKeyDown);

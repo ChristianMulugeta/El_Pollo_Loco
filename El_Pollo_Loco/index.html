@@ -39,6 +39,10 @@
         <button id="mute-button" class="mute-button" type="button"
             onclick="toggleMute()" aria-pressed="false" aria-label="Mute sound"
             title="Mute sound">&#128266;</button>
+        <button id="settings-button" class="settings-button hidden" type="button"
+            onclick="pauseGame()" aria-label="Pause game" title="Pause game">
+            <span></span><span></span><span></span>
+        </button>
         <section id="start-screen" class="start-screen">
             <div class="start-actions">
                 <button class="game-button" type="button" onclick="startGame()">Start Game</button>
@@ -53,6 +57,14 @@
             <div class="end-actions">
                 <button class="game-button" type="button" onclick="restartGame()">Play Again</button>
                 <button class="game-button" type="button" onclick="returnHome()">Home</button>
+            </div>
+        </section>
+        <section id="pause-screen" class="pause-screen hidden" aria-label="Pause menu">
+            <h2>Paused</h2>
+            <div class="pause-actions">
+                <button class="game-button" type="button" onclick="resumeGame()">Resume</button>
+                <button class="game-button" type="button" onclick="showControls()">Controls</button>
+                <button class="game-button" type="button" onclick="giveUpGame()">Give Up</button>
             </div>
         </section>
         <nav class="touch-controls hidden" aria-label="Touch controls">

@@ -45,6 +45,19 @@ class AudioManager {
         });
     }
 
+    /** Pauses every active sound without rewinding it. */
+    pauseAll() {
+        this.audioElements.forEach((audio) => audio.pause());
+    }
+
+    /** Continues one named sound from its paused position. */
+    resume(name) {
+        const audio = this.sounds.get(name);
+        if (!audio) return;
+        const playback = audio.play();
+        if (playback) playback.catch(() => {});
+    }
+
     /** Switches between muted and audible playback. */
     toggleMute() {
         this.setMuted(!this.isMuted);

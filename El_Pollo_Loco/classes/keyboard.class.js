@@ -5,4 +5,10 @@ class Keyboard {
     RIGHT = false;
     SPACE = false;
     R = false;
+    lastInput = Date.now();
+
+    /** Records the latest keyboard or touch interaction. */
+    recordInput() {
+        this.lastInput = Date.now();
+    }
 }

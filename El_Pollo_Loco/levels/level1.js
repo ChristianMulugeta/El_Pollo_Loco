@@ -30,13 +30,13 @@ function createLevel1Clouds() {
 /** Creates five collectible coins for the first level. */
 function createLevel1Coins() {
     return [400, 750, 1100, 1450, 1800].map((x, index) => {
-        return new Coin(x, index % 2 === 0 ? 250 : 190);
+        return new Coin(x, index % 2 === 0 ? 250 : 100);
     });
 }
 
-/** Creates five collectible bottles for the first level. */
+/** Creates six collectible bottles for the first level. */
 function createLevel1Bottles() {
-    return [550, 900, 1250, 1600, 1950].map((x) => new Bottle(x, 330));
+    return [550, 700, 900, 1250, 1600, 1950].map((x) => new Bottle(x, 330));
 }
 
 /** Creates the repeating background layers for the first level. */

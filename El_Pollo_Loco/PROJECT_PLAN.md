@@ -79,12 +79,12 @@ Noch offen aus der technischen Grundlage:
 - Hurt- und Dead-Zustände: umgesetzt und getestet
 - Energie, Statusbar, Schaden und Siegbedingung: umgesetzt und getestet
 
-### Phase 8 – Charakterzustände
+### Phase 8 – Charakterzustände: abgeschlossen
 
 - Priorität Dead → Hurt → Jump → Walk: umgesetzt und getestet
-- Priorität Idle → Sleep nach Bereitstellung der fehlenden Assets ergänzen
-- Idle- und Sleep-Zustand nach spätestens 15 Sekunden ergänzen
-- fehlende, freigegebene Idle-/Sleep-Assets bereitstellen
+- Priorität Idle → Sleep: umgesetzt
+- Idle- und Sleep-Zustand nach spätestens 15 Sekunden: umgesetzt
+- Idle-/Sleep-Assets aus dem vorhandenen Sprite-Sheet extrahiert
 
 ### Phase 9 – Gewinnen, Verlieren und Neustart: abgeschlossen
 
@@ -119,6 +119,6 @@ Noch offen aus der technischen Grundlage:
 
 ## Nächster Einstiegspunkt
 
-Als Nächstes geeignete Idle-/Sleep-Assets für Phase 8 bereitstellen und die
-Zustände nach spätestens 15 Sekunden ergänzen. Die optionale Story und
-Fullscreen-Funktion bleiben bis nach den Pflichtpunkten zurückgestellt.
+Als Nächstes die Idle-/Sleep-Zustände im Browser abnehmen und anschließend
+committen. Die optionale Story und Fullscreen-Funktion bleiben bis nach den
+Pflichtpunkten zurückgestellt.

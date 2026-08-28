@@ -11,6 +11,6 @@ class EndbossStatusBar extends StatusBar {
     /** Creates a full boss status bar at the top right. */
     constructor() {
         super(END_BOSS_STATUS_IMAGES, 0, 100);
-        this.x = 500;
+        this.x = 440;
     }
 }

@@ -26,7 +26,9 @@ class MovableObject extends DrawableObject {
 
     /** Starts and stores an interval so it can be stopped with the game. */
     startInterval(callback, delay) {
-        const intervalId = setInterval(callback, delay);
+        const intervalId = setInterval(() => {
+            if (!this.world?.isPaused) callback();
+        }, delay);
         this.intervalIds.push(intervalId);
         return intervalId;
     }

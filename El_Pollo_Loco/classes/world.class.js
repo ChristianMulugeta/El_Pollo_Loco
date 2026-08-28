@@ -13,6 +13,7 @@ class World {
     throwableObjects = [];
     gameWon = false;
     gameEnding = false;
+    isPaused = false;
     runIntervalId;
     animationFrameId;
     endTimeoutId;
@@ -32,12 +33,15 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.enemies.forEach((enemy) => enemy.world = this);
+        this.level.clouds.forEach((cloud) => cloud.world = this);
+        this.level.coins.forEach((coin) => coin.world = this);
+        this.level.bottles.forEach((bottle) => bottle.world = this);
     }
 
     /** Starts the recurring collision and input checks. */
     run() {
         this.runIntervalId = setInterval(() => {
-            if (this.gameEnding) return;
+            if (this.gameEnding || this.isPaused) return;
             this.checkCollisions();
             this.checkCollectibles();
             this.checkThrowInput();
@@ -64,6 +68,7 @@ class World {
         const facingLeft = this.character.otherDirection;
         const x = facingLeft ? this.character.x : this.character.x + 140;
         const bottle = new ThrowableObject(x, this.character.y + 100, facingLeft);
+        bottle.world = this;
         this.throwableObjects.push(bottle);
         this.bottleStatusBar.decrease();
     }
@@ -101,6 +106,19 @@ class World {
         this.gameWon = gameWon;
         this.gameEnding = true;
         this.endTimeoutId = setTimeout(() => this.finishGame(), 800);
+    }
+
+    /** Freezes or resumes every recurring game task. */
+    setPaused(isPaused) {
+        this.isPaused = isPaused;
+    }
+
+    /** Ends a paused game as a regular defeat. */
+    giveUp() {
+        this.setPaused(false);
+        this.character.energy = 0;
+        this.statusBar.setPercentage(0);
+        this.prepareGameEnd(false);
     }
 
     /** Stops all activity and opens the matching end screen. */
@@ -167,13 +185,16 @@ class World {
         this.level.coins = this.collectItems(
             this.level.coins, this.coinStatusBar, GAME_SOUNDS.COIN
         );
-        this.level.bottles = this.collectItems(this.level.bottles, this.bottleStatusBar);
+        this.level.bottles = this.collectItems(
+            this.level.bottles, this.bottleStatusBar, null, true
+        );
     }
 
     /** Returns all items that have not collided with the character. */
-    collectItems(items, statusBar, soundName) {
+    collectItems(items, statusBar, soundName, hasLimit = false) {
         return items.filter((item) => {
             if (!this.character.isColliding(item)) return true;
+            if (hasLimit && statusBar.percentage >= 100) return true;
             statusBar.increase();
             if (soundName) this.playSound(soundName);
             item.stopIntervals();
