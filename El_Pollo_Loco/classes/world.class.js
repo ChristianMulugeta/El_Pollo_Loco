@@ -175,7 +175,7 @@ class World {
     /** Applies contact damage when the collision is not a jump attack. */
     damageCharacter() {
         if (this.character.isHurt()) return;
-        this.character.hit();
+        this.character.hit(20);
         this.playSound(GAME_SOUNDS.HURT);
         this.statusBar.setPercentage(this.character.energy);
     }
