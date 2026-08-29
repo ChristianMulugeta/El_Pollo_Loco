@@ -16,11 +16,50 @@
     }
 
     .legal-content h1 {
-        font-size: 46px;
+        font-size: clamp(38px, 12vw, 46px);
+    }
+
+    .legal-content h2 {
+        font-size: clamp(27px, 8vw, 32px);
+    }
+
+    .legal-content a {
+        overflow-wrap: anywhere;
     }
 }
 
 @media only screen and (max-width: 480px) {
+    .legal-page {
+        padding: 10px;
+    }
+
+    .legal-content {
+        padding: 20px 16px;
+        border-width: 3px;
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .legal-content h1 {
+        margin: 16px 0;
+        line-height: 1;
+    }
+
+    .legal-content h2 {
+        margin-top: 24px;
+        line-height: 1.1;
+    }
+
+    .sample-notice {
+        padding: 10px 12px;
+        border-left-width: 4px;
+    }
+
+    .back-link {
+        display: inline-block;
+        padding: 6px 0;
+    }
+
     .start-actions {
         gap: 8px;
     }
@@ -28,6 +67,64 @@
     .game-button {
         padding: 8px 18px;
         font-size: 26px;
+    }
+}
+
+@media only screen and (orientation: landscape) and (max-width: 900px) and (max-height: 500px) {
+    .legal-page {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        padding: 8px;
+        overflow: hidden;
+    }
+
+    .legal-content {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px 18px;
+        width: 100%;
+        height: 100%;
+        padding: 10px 16px;
+        border-width: 3px;
+        border-radius: 12px;
+        font-size: clamp(12px, 2.2vh, 15px);
+        line-height: 1.25;
+    }
+
+    .legal-content .back-link {
+        grid-column: 1;
+        align-self: center;
+        padding: 4px 0;
+    }
+
+    .legal-content h1 {
+        grid-column: 2 / 4;
+        align-self: center;
+        margin: 0;
+        font-size: clamp(28px, 9vh, 40px);
+        line-height: 1;
+    }
+
+    .legal-content .sample-notice {
+        grid-column: 1 / -1;
+        margin: 0;
+        padding: 6px 10px;
+        border-left-width: 4px;
+    }
+
+    .legal-content section {
+        min-width: 0;
+    }
+
+    .legal-content h2 {
+        margin: 4px 0;
+        font-size: clamp(21px, 6vh, 28px);
+        line-height: 1;
+    }
+
+    .legal-content p {
+        margin: 2px 0;
     }
 }
 
