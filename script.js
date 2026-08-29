@@ -7,16 +7,22 @@ const GAME_SOUNDS = {
     COIN: "coin",
     JUMP: "jump",
     HURT: "hurt",
+    SNORE: "snore",
+    BOTTLE_HIT: "bottleHit",
     CHICKEN_HURT: "chickenHurt",
-    ENDBOSS: "endboss"
+    ENDBOSS: "endboss",
+    ENDBOSS_DEATH: "endbossDeath"
 };
 const GAME_SOUND_CONFIG = [
     [GAME_SOUNDS.MUSIC, "audio/background-music.mp3", { loop: true, volume: 0.2 }],
     [GAME_SOUNDS.COIN, "audio/coin-sound.mp3", { volume: 0.5 }],
     [GAME_SOUNDS.JUMP, "audio/jumping-sound.mp3", { volume: 0.5 }],
     [GAME_SOUNDS.HURT, "audio/pepe-hurt-sound.mp3", { volume: 0.5 }],
+    [GAME_SOUNDS.SNORE, "audio/pepe-snoring.mp3", { loop: true, volume: 0.45 }],
+    [GAME_SOUNDS.BOTTLE_HIT, "audio/salsa-bottle-hit.mp3", { volume: 0.5 }],
     [GAME_SOUNDS.CHICKEN_HURT, "audio/chicken-hurt-sound.mp3", { volume: 0.5 }],
-    [GAME_SOUNDS.ENDBOSS, "audio/endboss-chicken-sound.mp3", { volume: 0.4 }]
+    [GAME_SOUNDS.ENDBOSS, "audio/endboss-chicken-sound.mp3", { volume: 0.4 }],
+    [GAME_SOUNDS.ENDBOSS_DEATH, "audio/endboss-death.mp3", { volume: 0.55 }]
 ];
 const GAME_KEY_BY_CODE = {
     ArrowRight: "RIGHT",
@@ -108,6 +114,7 @@ function resumeGame() {
     keyboard.recordInput();
     closePauseMenu();
     audioManager.resume(GAME_SOUNDS.MUSIC);
+    if (world.character.isSnoring) audioManager.resume(GAME_SOUNDS.SNORE);
 }
 
 /** Hides all parts of the pause overlay. */

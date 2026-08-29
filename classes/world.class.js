@@ -56,6 +56,11 @@ class World {
         this.audioManager.play(name);
     }
 
+    /** Stops one named sound through the shared audio manager. */
+    stopSound(name) {
+        this.audioManager.stop(name);
+    }
+
     /** Creates a throwable bottle when the throw key is pressed. */
     checkThrowInput() {
         if (!this.keyboard.R) return;
@@ -82,9 +87,22 @@ class World {
             });
             if (!enemy) return;
             enemy.hit();
+            this.playBottleHitSounds(enemy);
             this.updateEndbossStatus(enemy);
             bottle.startSplash();
         });
+    }
+
+    /** Plays impact and enemy feedback for a bottle hit. */
+    playBottleHitSounds(enemy) {
+        this.playSound(GAME_SOUNDS.BOTTLE_HIT);
+        if (!(enemy instanceof Endboss)) {
+            this.playSound(GAME_SOUNDS.CHICKEN_HURT);
+        } else if (enemy.isDead()) {
+            this.playSound(GAME_SOUNDS.ENDBOSS_DEATH);
+        } else {
+            this.playSound(GAME_SOUNDS.ENDBOSS);
+        }
     }
 
     /** Updates the boss bar when the hit enemy is the endboss. */

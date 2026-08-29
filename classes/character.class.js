@@ -11,6 +11,7 @@ class Character extends MovableObject {
     };
     speed = 5;
     inactivityTime = 15000;
+    isSnoring = false;
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-11.png',
         'img/2_character_pepe/1_idle/idle/I-12.png',
@@ -122,7 +123,16 @@ class Character extends MovableObject {
     /** Plays the highest-priority available animation. */
     updateAnimation() {
         const images = this.getCurrentAnimation();
+        this.updateSnoring(images === this.IMAGES_LONG_IDLE);
         if (images) this.playAnimation(images);
+    }
+
+    /** Starts or stops snoring when Pepe changes sleep state. */
+    updateSnoring(shouldSnore) {
+        if (shouldSnore === this.isSnoring) return;
+        this.isSnoring = shouldSnore;
+        if (shouldSnore) this.world.playSound(GAME_SOUNDS.SNORE);
+        else this.world.stopSound(GAME_SOUNDS.SNORE);
     }
 
     /** Resolves animation priority from dead through sleep. */

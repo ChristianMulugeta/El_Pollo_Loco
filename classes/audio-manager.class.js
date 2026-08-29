@@ -37,6 +37,14 @@ class AudioManager {
         if (playback) playback.catch(() => {});
     }
 
+    /** Stops and rewinds one named sound. */
+    stop(name) {
+        const audio = this.sounds.get(name);
+        if (!audio) return;
+        audio.pause();
+        audio.currentTime = 0;
+    }
+
     /** Stops every sound and rewinds it for the next game. */
     stopAll() {
         this.audioElements.forEach((audio) => {
