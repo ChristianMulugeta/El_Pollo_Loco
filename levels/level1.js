@@ -24,7 +24,7 @@ function createLevel1Enemies() {
 
 /** Creates all clouds for the first level. */
 function createLevel1Clouds() {
-    return [new Cloud()];
+    return [0, 400, 800, 1200, 1600, 2000].map((x) => new Cloud(x));
 }
 
 /** Creates five collectible coins for the first level. */

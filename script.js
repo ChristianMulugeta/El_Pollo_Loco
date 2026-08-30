@@ -11,7 +11,9 @@ const GAME_SOUNDS = {
     BOTTLE_HIT: "bottleHit",
     CHICKEN_HURT: "chickenHurt",
     ENDBOSS: "endboss",
-    ENDBOSS_DEATH: "endbossDeath"
+    ENDBOSS_DEATH: "endbossDeath",
+    YOU_WON: "youWon",
+    YOU_LOST: "youLost"
 };
 const GAME_SOUND_CONFIG = [
     [GAME_SOUNDS.MUSIC, "audio/background-music.mp3", { loop: true, volume: 0.2 }],
@@ -22,7 +24,9 @@ const GAME_SOUND_CONFIG = [
     [GAME_SOUNDS.BOTTLE_HIT, "audio/salsa-bottle-hit.mp3", { volume: 0.5 }],
     [GAME_SOUNDS.CHICKEN_HURT, "audio/chicken-hurt-sound.mp3", { volume: 0.5 }],
     [GAME_SOUNDS.ENDBOSS, "audio/endboss-chicken-sound.mp3", { volume: 0.4 }],
-    [GAME_SOUNDS.ENDBOSS_DEATH, "audio/endboss-death.mp3", { volume: 0.55 }]
+    [GAME_SOUNDS.ENDBOSS_DEATH, "audio/endboss-death.mp3", { volume: 0.55 }],
+    [GAME_SOUNDS.YOU_WON, "audio/you-won-sound.mp3", { volume: 0.6 }],
+    [GAME_SOUNDS.YOU_LOST, "audio/you-lost-sound.mp3", { volume: 0.6 }]
 ];
 const GAME_KEY_BY_CODE = {
     ArrowRight: "RIGHT",
@@ -58,6 +62,7 @@ function startGame() {
 /** Displays the matching result image and end-screen actions. */
 function showEndScreen(gameWon) {
     audioManager.stopAll();
+    audioManager.play(gameWon ? GAME_SOUNDS.YOU_WON : GAME_SOUNDS.YOU_LOST);
     const resultImage = document.getElementById("result-image");
     resultImage.src = gameWon ? "img/You won, you lost/You Won B.png"
         : "img/9_intro_outro_screens/game_over/you lost.png";
