@@ -40,14 +40,20 @@ const SCROLL_KEYS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"]
 
 initializeGameSounds();
 
-/** Registers every available local audio file. */
+/**
+ * Registers every available local audio file.
+ * @returns {void}
+ */
 function initializeGameSounds() {
     GAME_SOUND_CONFIG.forEach(([name, source, options]) => {
         audioManager.addSound(name, source, options);
     });
 }
 
-/** Starts the game once and closes the start screen. */
+/**
+ * Starts the game once and closes the start screen.
+ * @returns {void}
+ */
 function startGame() {
     if (world) return;
     keyboard = new Keyboard();
@@ -59,7 +65,11 @@ function startGame() {
     audioManager.play(GAME_SOUNDS.MUSIC);
 }
 
-/** Displays the matching result image and end-screen actions. */
+/**
+ * Displays the matching result image and end-screen actions.
+ * @param {boolean} gameWon - Whether the player won the game.
+ * @returns {void}
+ */
 function showEndScreen(gameWon) {
     audioManager.stopAll();
     audioManager.play(gameWon ? GAME_SOUNDS.YOU_WON : GAME_SOUNDS.YOU_LOST);
@@ -73,20 +83,29 @@ function showEndScreen(gameWon) {
     setTouchControlsVisible(false);
 }
 
-/** Starts a fresh world without reloading the page. */
+/**
+ * Starts a fresh world without reloading the page.
+ * @returns {void}
+ */
 function restartGame() {
     resetGameView();
     startGame();
 }
 
-/** Returns to the start screen without reloading the page. */
+/**
+ * Returns to the start screen without reloading the page.
+ * @returns {void}
+ */
 function returnHome() {
     resetGameView();
     clearCanvas();
     document.getElementById("start-screen").classList.remove("hidden");
 }
 
-/** Removes the finished world and hides its result screen. */
+/**
+ * Removes the finished world and hides its result screen.
+ * @returns {void}
+ */
 function resetGameView() {
     if (world) world.stop();
     audioManager.stopAll();
@@ -97,12 +116,19 @@ function resetGameView() {
     setTouchControlsVisible(false);
 }
 
-/** Shows the settings button only while a game is active. */
+/**
+ * Shows the settings button only while a game is active.
+ * @param {boolean} isVisible - Whether the settings button should be visible.
+ * @returns {void}
+ */
 function setSettingsVisible(isVisible) {
     document.getElementById("settings-button").classList.toggle("hidden", !isVisible);
 }
 
-/** Pauses the game and opens its settings overlay. */
+/**
+ * Pauses the game and opens its settings overlay.
+ * @returns {void}
+ */
 function pauseGame() {
     if (!world || world.gameEnding) return;
     world.setPaused(true);
@@ -111,7 +137,10 @@ function pauseGame() {
     document.getElementById("pause-screen").classList.remove("hidden");
 }
 
-/** Closes the settings overlay and continues the game. */
+/**
+ * Closes the settings overlay and continues the game.
+ * @returns {void}
+ */
 function resumeGame() {
     if (!world) return;
     releaseGameKeys();
@@ -122,19 +151,28 @@ function resumeGame() {
     if (world.character.isSnoring) audioManager.resume(GAME_SOUNDS.SNORE);
 }
 
-/** Hides all parts of the pause overlay. */
+/**
+ * Hides all parts of the pause overlay.
+ * @returns {void}
+ */
 function closePauseMenu() {
     document.getElementById("pause-screen").classList.add("hidden");
 }
 
-/** Releases held controls so movement cannot stick after pausing. */
+/**
+ * Releases held controls so movement cannot stick after pausing.
+ * @returns {void}
+ */
 function releaseGameKeys() {
     Object.keys(GAME_KEY_BY_CODE).forEach((code) => {
         keyboard[GAME_KEY_BY_CODE[code]] = false;
     });
 }
 
-/** Leaves the pause menu and starts the defeat sequence. */
+/**
+ * Leaves the pause menu and starts the defeat sequence.
+ * @returns {void}
+ */
 function giveUpGame() {
     if (!world) return;
     closePauseMenu();
@@ -142,25 +180,39 @@ function giveUpGame() {
     world.giveUp();
 }
 
-/** Shows touch controls only while a game is running. */
+/**
+ * Shows touch controls only while a game is running.
+ * @param {boolean} isVisible - Whether the touch controls should be visible.
+ * @returns {void}
+ */
 function setTouchControlsVisible(isVisible) {
     document.querySelector(".touch-controls")
         .classList.toggle("hidden", !isVisible);
 }
 
-/** Clears the last rendered game frame. */
+/**
+ * Clears the last rendered game frame.
+ * @returns {void}
+ */
 function clearCanvas() {
     if (canvas) canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 }
 
-/** Connects every marked touch button to its keyboard state. */
+/**
+ * Connects every marked touch button to its keyboard state.
+ * @returns {void}
+ */
 function initializeTouchControls() {
     document.querySelectorAll("[data-key]").forEach(bindTouchButton);
     const controls = document.querySelector(".touch-controls");
     controls.addEventListener("contextmenu", (event) => event.preventDefault());
 }
 
-/** Adds press and release handling to one touch button. */
+/**
+ * Adds press and release handling to one touch button.
+ * @param {HTMLButtonElement} button - Touch button to connect.
+ * @returns {void}
+ */
 function bindTouchButton(button) {
     button.addEventListener("pointerdown", (event) => updateTouchKey(event, true));
     ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
@@ -168,25 +220,39 @@ function bindTouchButton(button) {
     });
 }
 
-/** Updates the keyboard property selected by the pressed button. */
+/**
+ * Updates the keyboard property selected by the pressed button.
+ * @param {PointerEvent} event - Pointer interaction on a touch button.
+ * @param {boolean} isPressed - Whether the button is currently pressed.
+ * @returns {void}
+ */
 function updateTouchKey(event, isPressed) {
     event.preventDefault();
     keyboard[event.currentTarget.dataset.key] = isPressed;
     keyboard.recordInput();
 }
 
-/** Restores the mute button from the persisted audio state. */
+/**
+ * Restores the mute button from the persisted audio state.
+ * @returns {void}
+ */
 function initializeAudioControls() {
     updateMuteButton();
 }
 
-/** Toggles all game audio and refreshes the mute button. */
+/**
+ * Toggles all game audio and refreshes the mute button.
+ * @returns {void}
+ */
 function toggleMute() {
     audioManager.toggleMute();
     updateMuteButton();
 }
 
-/** Displays and describes the current mute state. */
+/**
+ * Displays and describes the current mute state.
+ * @returns {void}
+ */
 function updateMuteButton() {
     const button = document.getElementById("mute-button");
     const label = audioManager.isMuted ? "Unmute sound" : "Mute sound";
@@ -196,37 +262,93 @@ function updateMuteButton() {
     button.title = label;
 }
 
-/** Opens the controls dialog. */
+/**
+ * Opens the controls dialog.
+ * @returns {void}
+ */
 function showControls() {
     document.getElementById("controls-dialog").showModal();
 }
 
-/** Closes the controls dialog. */
+/**
+ * Closes the controls dialog.
+ * @returns {void}
+ */
 function closeControls() {
     document.getElementById("controls-dialog").close();
 }
 
-/** Closes the dialog when its backdrop is clicked. */
+/**
+ * Closes the dialog when its backdrop is clicked.
+ * @param {MouseEvent} event - Click dispatched by the controls dialog.
+ * @returns {void}
+ */
 function closeControlsOnBackdrop(event) {
-    const dialog = event.currentTarget;
-    const rect = dialog.getBoundingClientRect();
-    const outsideX = event.clientX < rect.left || event.clientX > rect.right;
-    const outsideY = event.clientY < rect.top || event.clientY > rect.bottom;
-    if (outsideX || outsideY) closeControls();
+    if (isBackdropClick(event)) closeControls();
 }
 
-/** Prevents page scrolling and activates the matching game control. */
+/**
+ * Opens the legal notice dialog.
+ * @returns {void}
+ */
+function showLegalNotice() {
+    document.getElementById("legal-dialog").showModal();
+}
+
+/**
+ * Closes the legal notice dialog.
+ * @returns {void}
+ */
+function closeLegalNotice() {
+    document.getElementById("legal-dialog").close();
+}
+
+/**
+ * Closes the legal notice when its backdrop is clicked.
+ * @param {MouseEvent} event - Click dispatched by the legal dialog.
+ * @returns {void}
+ */
+function closeLegalNoticeOnBackdrop(event) {
+    if (isBackdropClick(event)) closeLegalNotice();
+}
+
+/**
+ * Checks whether a dialog click occurred outside its visible box.
+ * @param {MouseEvent} event - Click dispatched by a dialog element.
+ * @returns {boolean} Whether the click occurred on the backdrop.
+ */
+function isBackdropClick(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const outsideX = event.clientX < rect.left || event.clientX > rect.right;
+    const outsideY = event.clientY < rect.top || event.clientY > rect.bottom;
+    return outsideX || outsideY;
+}
+
+/**
+ * Prevents page scrolling and activates the matching game control.
+ * @param {KeyboardEvent} event - Keydown event to process.
+ * @returns {void}
+ */
 function handleKeyDown(event) {
     if (SCROLL_KEYS.includes(event.code)) event.preventDefault();
     updateKeyboardState(event, true);
 }
 
-/** Releases the game control assigned to the keyboard event. */
+/**
+ * Releases the game control assigned to the keyboard event.
+ * @param {KeyboardEvent} event - Keyup event to process.
+ * @returns {void}
+ */
 function handleKeyUp(event) {
     updateKeyboardState(event, false);
 }
 
-/** Maps a browser key code to one property of the shared keyboard state. */
+/**
+ * Maps a browser key code to one property of the shared keyboard state.
+ * @param {KeyboardEvent} event - Keyboard event to map.
+ * @param {boolean} isPressed - Whether the mapped control is pressed.
+ * @returns {void}
+ */
 function updateKeyboardState(event, isPressed) {
     const gameKey = GAME_KEY_BY_CODE[event.code];
     if (!gameKey || event.repeat) return;

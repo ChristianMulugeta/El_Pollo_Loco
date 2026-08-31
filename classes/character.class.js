@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 
-    y = 50;
+    y = 120;
     height = 300;
     width = 200;
     offset = {
@@ -89,13 +89,19 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    /** Starts movement and state-dependent animation intervals. */
+    /**
+     * Starts movement and state-dependent animation intervals.
+     * @returns {void}
+     */
     animate() {
         this.startInterval(() => this.updateMovement(), 1000 / 60);
         this.startInterval(() => this.updateAnimation(), 80);
     }
 
-    /** Processes movement, jumping, and the camera position. */
+    /**
+     * Processes movement, jumping, and the camera position.
+     * @returns {void}
+     */
     updateMovement() {
         if (this.isDead() || this.world.gameEnding) return;
         this.moveHorizontally();
@@ -103,7 +109,10 @@ class Character extends MovableObject {
         this.world.cameraX = -this.x + 100;
     }
 
-    /** Moves Pepe left or right within the level boundaries. */
+    /**
+     * Moves Pepe left or right within the level boundaries.
+     * @returns {void}
+     */
     moveHorizontally() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
             this.moveRight();
@@ -115,19 +124,29 @@ class Character extends MovableObject {
         }
     }
 
-    /** Starts a jump when requested from the ground. */
+    /**
+     * Starts a jump when requested from the ground.
+     * @returns {void}
+     */
     jumpIfRequested() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) this.jump();
     }
 
-    /** Plays the highest-priority available animation. */
+    /**
+     * Plays the highest-priority available animation.
+     * @returns {void}
+     */
     updateAnimation() {
         const images = this.getCurrentAnimation();
         this.updateSnoring(images === this.IMAGES_LONG_IDLE);
         if (images) this.playAnimation(images);
     }
 
-    /** Starts or stops snoring when Pepe changes sleep state. */
+    /**
+     * Starts or stops snoring when Pepe changes sleep state.
+     * @param {boolean} shouldSnore - Whether the snoring sound should play.
+     * @returns {void}
+     */
     updateSnoring(shouldSnore) {
         if (shouldSnore === this.isSnoring) return;
         this.isSnoring = shouldSnore;
@@ -135,7 +154,10 @@ class Character extends MovableObject {
         else this.world.stopSound(GAME_SOUNDS.SNORE);
     }
 
-    /** Resolves animation priority from dead through sleep. */
+    /**
+     * Resolves animation priority from dead through sleep.
+     * @returns {string[]} Image paths for the active animation.
+     */
     getCurrentAnimation() {
         if (this.isDead()) return this.IMAGES_DEAD;
         if (this.isHurt()) return this.IMAGES_HURT;
@@ -145,17 +167,26 @@ class Character extends MovableObject {
         return this.IMAGES_IDLE;
     }
 
-    /** Checks whether Pepe has received no input for 15 seconds. */
+    /**
+     * Checks whether Pepe has received no input for 15 seconds.
+     * @returns {boolean} Whether Pepe has been inactive long enough.
+     */
     isLongIdle() {
         return Date.now() - this.world.keyboard.lastInput >= this.inactivityTime;
     }
 
-    /** Checks whether a horizontal movement key is held. */
+    /**
+     * Checks whether a horizontal movement key is held.
+     * @returns {boolean} Whether left or right movement is active.
+     */
     isMoving() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
 
-    /** Gives Pepe upward velocity. */
+    /**
+     * Gives Pepe upward velocity.
+     * @returns {void}
+     */
     jump() {
         this.speedY = 25;
         this.world.playSound(GAME_SOUNDS.JUMP);

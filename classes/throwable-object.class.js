@@ -21,7 +21,12 @@ class ThrowableObject extends MovableObject {
     isSplashing = false;
     splashComplete = false;
 
-    /** Creates a bottle and launches it in the selected direction. */
+    /**
+     * Creates a bottle and launches it in the selected direction.
+     * @param {number} x - Horizontal launch position.
+     * @param {number} y - Vertical launch position.
+     * @param {boolean} [facingLeft=false] - Whether the bottle flies left.
+     */
     constructor(x, y, facingLeft = false) {
         super();
         this.loadImages(BOTTLE_ROTATION_IMAGES);
@@ -35,7 +40,10 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
-    /** Starts flight movement and rotation. */
+    /**
+     * Starts flight movement and rotation.
+     * @returns {void}
+     */
     throw() {
         this.speedY = 30;
         this.movementInterval = this.startInterval(() => this.moveThroughAir(), 40);
@@ -44,7 +52,10 @@ class ThrowableObject extends MovableObject {
         }, 80);
     }
 
-    /** Advances the bottle and starts its splash on the ground. */
+    /**
+     * Advances the bottle and starts its splash on the ground.
+     * @returns {void}
+     */
     moveThroughAir() {
         this.x += this.horizontalSpeed;
         this.y -= this.speedY;
@@ -52,7 +63,10 @@ class ThrowableObject extends MovableObject {
         if (this.y >= 360 && this.speedY < 0) this.startSplash();
     }
 
-    /** Stops the flight and switches to the splash animation. */
+    /**
+     * Stops the flight and switches to the splash animation.
+     * @returns {void}
+     */
     startSplash() {
         if (this.isSplashing) return;
         this.isSplashing = true;
@@ -63,7 +77,10 @@ class ThrowableObject extends MovableObject {
         this.animateSplash();
     }
 
-    /** Plays every splash frame once and marks the animation complete. */
+    /**
+     * Plays every splash frame once and marks the animation complete.
+     * @returns {void}
+     */
     animateSplash() {
         this.animationInterval = this.startInterval(() => {
             if (this.currentImage >= BOTTLE_SPLASH_IMAGES.length) {

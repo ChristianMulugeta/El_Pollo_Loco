@@ -51,7 +51,7 @@
                 <button class="game-button" type="button" onclick="showControls()">Controls</button>
             </div>
             <footer class="site-footer">
-                <a class="game-button" href="imprint.html">Legal Notice</a>
+                <button class="game-button" type="button" onclick="showLegalNotice()">Legal Notice</button>
             </footer>
         </section>
         <section id="end-screen" class="end-screen hidden">
@@ -89,10 +89,43 @@
         </section>
         <dialog id="controls-dialog" class="controls-dialog" onclick="closeControlsOnBackdrop(event)">
             <h2>Controls</h2>
-            <p><span>Move</span> Arrow keys or A / D</p>
-            <p><span>Jump</span> Space</p>
-            <p><span>Throw bottle</span> R</p>
+            <div class="desktop-control-info">
+                <p><span>Move</span> Arrow keys or A / D</p>
+                <p><span>Jump</span> Space</p>
+                <p><span>Throw bottle</span> R</p>
+            </div>
+            <div class="mobile-control-info" aria-label="Touch controls">
+                <p><span class="control-preview" aria-hidden="true">&#9664; &#9654;</span>Move</p>
+                <p><span class="control-preview control-preview--text" aria-hidden="true">Jump</span>Jump</p>
+                <p><span class="control-preview control-preview--bottle" aria-hidden="true"></span>Throw bottle</p>
+            </div>
             <button class="game-button" type="button" onclick="closeControls()">Close</button>
+        </dialog>
+        <dialog id="legal-dialog" class="legal-dialog" aria-labelledby="legal-dialog-title"
+            onclick="closeLegalNoticeOnBackdrop(event)">
+            <div class="legal-dialog-content">
+                <h2 id="legal-dialog-title">Legal Notice</h2>
+                <section>
+                    <h3>Provider information</h3>
+                    <address>
+                        Christian Mulugeta<br>
+                        Hertenstrasse 17B<br>
+                        8353 Elgg<br>
+                        Schweiz<br>
+                    </address>
+                </section>
+                <section>
+                    <h3>Contact</h3>
+                    <p>
+                        Email: <a href="mailto:christian.tatek@yahoo.com">christian.tatek@yahoo.com</a>
+                    </p>
+                </section>
+                <section>
+                    <h3>Project information</h3>
+                    <p>El Pollo Loco is a non-commercial educational project created as part of a programming course.</p>
+                </section>
+                <button class="game-button" type="button" onclick="closeLegalNotice()">Close</button>
+            </div>
         </dialog>
     </main>
 </body>

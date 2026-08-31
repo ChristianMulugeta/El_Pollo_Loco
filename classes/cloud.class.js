@@ -3,7 +3,10 @@ class Cloud extends MovableObject {
     height = 250;
     width = 500;
 
-    /** Creates a cloud at the given horizontal position. */
+    /**
+     * Creates a cloud at the given horizontal position.
+     * @param {number} x - Horizontal world position.
+     */
     constructor(x) {
         super();
         this.loadImage('img/5_background/layers/4_clouds/1.png');
@@ -11,7 +14,10 @@ class Cloud extends MovableObject {
         this.animate();
     }
 
-    /** Starts the cloud's continuous movement to the left. */
+    /**
+     * Starts the cloud's continuous movement to the left.
+     * @returns {void}
+     */
     animate() {
         this.startInterval(() => {
             this.moveLeft();

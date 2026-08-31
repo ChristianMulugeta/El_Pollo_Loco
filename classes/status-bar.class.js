@@ -10,7 +10,12 @@ const HEALTH_STATUS_IMAGES = [
 class StatusBar extends DrawableObject {
     percentage;
 
-    /** Creates a status bar with configurable images and position. */
+    /**
+     * Creates a status bar with configurable images and position.
+     * @param {string[]} [images=HEALTH_STATUS_IMAGES] - Status images.
+     * @param {number} [y=0] - Vertical canvas position.
+     * @param {number} [percentage=100] - Initial percentage value.
+     */
     constructor(images = HEALTH_STATUS_IMAGES, y = 0, percentage = 100) {
         super();
         this.IMAGES = images;
@@ -22,24 +27,37 @@ class StatusBar extends DrawableObject {
         this.setPercentage(percentage);
     }
 
-    /** Updates the percentage and displayed status image. */
+    /**
+     * Updates the percentage and displayed status image.
+     * @param {number} percentage - New percentage value.
+     * @returns {void}
+     */
     setPercentage(percentage) {
         this.percentage = Math.max(0, Math.min(percentage, 100));
         const imagePath = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 
-    /** Raises a collectible status bar by one of five steps. */
+    /**
+     * Raises a collectible status bar by one of five steps.
+     * @returns {void}
+     */
     increase() {
         this.setPercentage(this.percentage + 20);
     }
 
-    /** Lowers a collectible status bar by one of five steps. */
+    /**
+     * Lowers a collectible status bar by one of five steps.
+     * @returns {void}
+     */
     decrease() {
         this.setPercentage(this.percentage - 20);
     }
 
-    /** Resolves the current image index from the percentage. */
+    /**
+     * Resolves the current image index from the percentage.
+     * @returns {number} Matching index in the status image array.
+     */
     resolveImageIndex() {
         return Math.ceil(this.percentage / 20);
     }

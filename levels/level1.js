@@ -6,7 +6,10 @@ const LEVEL1_BACKGROUND_PATHS = [
     'air.png', '3_third_layer/2.png', '2_second_layer/2.png', '1_first_layer/2.png'
 ];
 
-/** Creates the first level when a game starts. */
+/**
+ * Creates the first level when a game starts.
+ * @returns {Level} Newly populated first level.
+ */
 function createLevel1() {
     return new Level(
         createLevel1Enemies(), createLevel1Clouds(), createLevel1Background(),
@@ -14,7 +17,10 @@ function createLevel1() {
     );
 }
 
-/** Creates all enemies for the first level. */
+/**
+ * Creates all enemies for the first level.
+ * @returns {MovableObject[]} Enemies for the first level.
+ */
 function createLevel1Enemies() {
     return [
         new Chicken(), new SmallChicken(), new Chicken(),
@@ -22,24 +28,36 @@ function createLevel1Enemies() {
     ];
 }
 
-/** Creates all clouds for the first level. */
+/**
+ * Creates all clouds for the first level.
+ * @returns {Cloud[]} Clouds for the first level.
+ */
 function createLevel1Clouds() {
     return [0, 400, 800, 1200, 1600, 2000].map((x) => new Cloud(x));
 }
 
-/** Creates five collectible coins for the first level. */
+/**
+ * Creates five collectible coins for the first level.
+ * @returns {Coin[]} Coins for the first level.
+ */
 function createLevel1Coins() {
     return [400, 750, 1100, 1450, 1800].map((x, index) => {
         return new Coin(x, index % 2 === 0 ? 250 : 100);
     });
 }
 
-/** Creates six collectible bottles for the first level. */
+/**
+ * Creates six collectible bottles for the first level.
+ * @returns {Bottle[]} Bottles for the first level.
+ */
 function createLevel1Bottles() {
     return [550, 700, 900, 1250, 1600, 1950].map((x) => new Bottle(x, 330));
 }
 
-/** Creates the repeating background layers for the first level. */
+/**
+ * Creates the repeating background layers for the first level.
+ * @returns {BackgroundObject[]} Ordered background layers.
+ */
 function createLevel1Background() {
     const basePath = 'img/5_background/layers/';
     return LEVEL1_BACKGROUND_PATHS.map((path, index) => {

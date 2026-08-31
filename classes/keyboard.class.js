@@ -7,7 +7,10 @@ class Keyboard {
     R = false;
     lastInput = Date.now();
 
-    /** Records the latest keyboard or touch interaction. */
+    /**
+     * Records the latest keyboard or touch interaction.
+     * @returns {void}
+     */
     recordInput() {
         this.lastInput = Date.now();
     }

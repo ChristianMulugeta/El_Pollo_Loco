@@ -4,7 +4,11 @@ class Coin extends MovableObject {
         'img/8_coin/coin_2.png'
     ];
 
-    /** Creates an animated coin at the given position. */
+    /**
+     * Creates an animated coin at the given position.
+     * @param {number} x - Horizontal world position.
+     * @param {number} y - Vertical world position.
+     */
     constructor(x, y) {
         super();
         this.loadImages(this.IMAGES);
@@ -17,7 +21,10 @@ class Coin extends MovableObject {
         this.animate();
     }
 
-    /** Alternates between the available coin images. */
+    /**
+     * Alternates between the available coin images.
+     * @returns {void}
+     */
     animate() {
         this.startInterval(() => {
             this.playAnimation(this.IMAGES);

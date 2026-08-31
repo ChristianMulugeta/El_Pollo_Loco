@@ -4,8 +4,8 @@ class Endboss extends MovableObject {
     y = 60;
     world;
     isActive = false;
-    activationDistance = 600;
-    attackDistance = 220;
+    activationDistance = 800;
+    attackDistance = 100;
     state = 'idle';
     speed = 1.25;
     offset = {
@@ -71,13 +71,19 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
-    /** Starts the boss movement and animation intervals. */
+    /**
+     * Starts the boss movement and animation intervals.
+     * @returns {void}
+     */
     animate() {
         this.startInterval(() => this.updateMovement(), 1000 / 60);
         this.startInterval(() => this.updateAnimation(), 1000 / 10);
     }
 
-    /** Activates, selects a state, and moves the boss when appropriate. */
+    /**
+     * Activates, selects a state, and moves the boss when appropriate.
+     * @returns {void}
+     */
     updateMovement() {
         this.activateIfNearby();
         if (!this.isActive || this.isDead() || this.isHurt()
@@ -86,14 +92,20 @@ class Endboss extends MovableObject {
         if (this.state === 'walk') this.moveLeft();
     }
 
-    /** Selects walking or attacking based on Pepe's distance. */
+    /**
+     * Selects walking or attacking based on Pepe's distance.
+     * @returns {void}
+     */
     updateCombatState() {
         const distance = this.x - this.world.character.x;
         const nextState = distance <= this.attackDistance ? 'attack' : 'walk';
         this.setBossState(nextState);
     }
 
-    /** Animates the current boss state by priority. */
+    /**
+     * Animates the current boss state by priority.
+     * @returns {void}
+     */
     updateAnimation() {
         if (this.playPriorityAnimation()) return;
         if (!this.isActive) return;
@@ -106,7 +118,10 @@ class Endboss extends MovableObject {
         this.playAnimation(images);
     }
 
-    /** Plays dead or hurt before regular combat animations. */
+    /**
+     * Plays dead or hurt before regular combat animations.
+     * @returns {boolean} Whether a priority animation was selected.
+     */
     playPriorityAnimation() {
         if (this.isDead()) {
             this.playDeadAnimation();
@@ -117,13 +132,21 @@ class Endboss extends MovableObject {
         return true;
     }
 
-    /** Plays a looping animation after switching state. */
+    /**
+     * Plays a looping animation after switching state.
+     * @param {string} state - State to activate.
+     * @param {string[]} images - Animation frames for that state.
+     * @returns {void}
+     */
     playStateAnimation(state, images) {
         this.setBossState(state);
         this.playAnimation(images);
     }
 
-    /** Plays the dead sequence once and keeps its final frame. */
+    /**
+     * Plays the dead sequence once and keeps its final frame.
+     * @returns {void}
+     */
     playDeadAnimation() {
         this.setBossState('dead');
         if (this.currentImage < this.IMAGES_DEAD.length) {
@@ -131,7 +154,10 @@ class Endboss extends MovableObject {
         }
     }
 
-    /** Plays the alert sequence once before the boss starts moving. */
+    /**
+     * Plays the alert sequence once before the boss starts moving.
+     * @returns {void}
+     */
     playAlertAnimation() {
         if (this.currentImage >= this.IMAGES_ALERT.length) {
             this.setBossState('walk');
@@ -140,19 +166,29 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_ALERT);
     }
 
-    /** Changes state and restarts its animation sequence. */
+    /**
+     * Changes state and restarts its animation sequence.
+     * @param {string} state - New boss state.
+     * @returns {void}
+     */
     setBossState(state) {
         if (this.state === state) return;
         this.state = state;
         this.currentImage = 0;
     }
 
-    /** Applies one bottle hit to the boss. */
+    /**
+     * Applies one bottle hit to the boss.
+     * @returns {void}
+     */
     hit() {
         super.hit(20);
     }
 
-    /** Activates the boss when Pepe enters its detection range. */
+    /**
+     * Activates the boss when Pepe enters its detection range.
+     * @returns {void}
+     */
     activateIfNearby() {
         if (!this.world || this.isActive) return;
         const distance = this.x - this.world.character.x;

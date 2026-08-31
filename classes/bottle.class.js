@@ -4,7 +4,11 @@ class Bottle extends MovableObject {
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
 
-    /** Creates an animated collectible bottle at the given position. */
+    /**
+     * Creates an animated collectible bottle at the given position.
+     * @param {number} x - Horizontal world position.
+     * @param {number} y - Vertical world position.
+     */
     constructor(x, y) {
         super();
         this.loadImages(this.IMAGES);
@@ -17,7 +21,10 @@ class Bottle extends MovableObject {
         this.animate();
     }
 
-    /** Alternates between the available bottle images. */
+    /**
+     * Alternates between the available bottle images.
+     * @returns {void}
+     */
     animate() {
         this.startInterval(() => {
             this.playAnimation(this.IMAGES);

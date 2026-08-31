@@ -1,6 +1,6 @@
 @media only screen and (max-width: 720px) {
     .game-container {
-        width: 100%;
+        width: min(100vw, 150dvh);
     }
 
     body:not(.legal-page) > h1 {
@@ -28,6 +28,16 @@
     }
 }
 
+@media only screen and (max-height: 700px) {
+    body:not(.legal-page) > h1 {
+        display: none;
+    }
+
+    .game-container {
+        width: min(720px, 100vw, 150dvh);
+    }
+}
+
 @media only screen and (max-width: 480px) {
     .legal-page {
         padding: 10px;
@@ -50,11 +60,6 @@
         line-height: 1.1;
     }
 
-    .sample-notice {
-        padding: 10px 12px;
-        border-left-width: 4px;
-    }
-
     .back-link {
         display: inline-block;
         padding: 6px 0;
@@ -67,6 +72,71 @@
     .game-button {
         padding: 8px 18px;
         font-size: 26px;
+    }
+
+    .legal-dialog {
+        width: calc(100% - 20px);
+        border-width: 3px;
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .legal-dialog-content {
+        padding: 14px 16px;
+    }
+
+    .legal-dialog h2 {
+        margin-bottom: 6px;
+        font-size: 38px;
+    }
+
+    .legal-dialog h3 {
+        margin-top: 8px;
+        font-size: 26px;
+    }
+
+    .legal-dialog .game-button {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-height: 500px) {
+    .legal-dialog {
+        width: min(760px, calc(100% - 16px));
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .legal-dialog-content {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+        gap: 4px 16px;
+        padding: 8px 14px;
+    }
+
+    .legal-dialog h2 {
+        grid-column: 1 / -1;
+        margin: 0;
+        font-size: 34px;
+        line-height: 1;
+    }
+
+    .legal-dialog h3 {
+        margin: 2px 0;
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    .legal-dialog section {
+        min-width: 0;
+    }
+
+    .legal-dialog .game-button {
+        grid-column: 1 / -1;
+        margin: 2px auto 0;
+        padding: 5px 16px;
+        font-size: 22px;
     }
 }
 
@@ -88,7 +158,7 @@
         padding: 10px 16px;
         border-width: 3px;
         border-radius: 12px;
-        font-size: clamp(12px, 2.2vh, 15px);
+        font-size: 16px;
         line-height: 1.25;
     }
 
@@ -104,13 +174,6 @@
         margin: 0;
         font-size: clamp(28px, 9vh, 40px);
         line-height: 1;
-    }
-
-    .legal-content .sample-notice {
-        grid-column: 1 / -1;
-        margin: 0;
-        padding: 6px 10px;
-        border-left-width: 4px;
     }
 
     .legal-content section {
@@ -144,14 +207,87 @@
     }
 
     .game-container {
-        width: min(100vw, 150vh);
-        width: min(100vw, 150dvh);
+        width: min(720px, 100vw, 150vh);
+        width: min(720px, 100vw, 150dvh);
     }
 }
 
 @media (pointer: coarse), (max-width: 900px) {
     .touch-controls {
         display: flex;
+    }
+
+    .desktop-control-info {
+        display: none;
+    }
+
+    .mobile-control-info {
+        display: block;
+    }
+
+    .controls-dialog {
+        width: min(420px, calc(100% - 20px));
+        min-width: 0;
+        padding: 14px 18px;
+        border-width: 3px;
+        font-size: 18px;
+    }
+
+    .controls-dialog h2 {
+        margin-bottom: 6px;
+        font-size: 38px;
+    }
+
+    .controls-dialog p {
+        margin: 5px 0;
+    }
+
+    .controls-dialog .game-button {
+        margin-top: 8px;
+    }
+}
+
+@media only screen and (max-width: 900px) and (max-height: 420px),
+    (pointer: coarse) and (max-height: 420px) {
+    .controls-dialog {
+        width: min(620px, calc(100% - 16px));
+        padding: 8px 14px;
+        font-size: 16px;
+    }
+
+    .controls-dialog h2 {
+        margin: 0;
+        font-size: 32px;
+        line-height: 1;
+    }
+
+    .mobile-control-info {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .mobile-control-info p {
+        flex-direction: column;
+        gap: 2px;
+        margin: 2px 0;
+    }
+
+    .control-preview {
+        min-width: 76px;
+        min-height: 38px;
+        padding: 4px 8px;
+        font-size: 18px;
+    }
+
+    .control-preview--text {
+        font-size: 18px;
+    }
+
+    .controls-dialog .game-button {
+        margin-top: 2px;
+        padding: 5px 16px;
+        font-size: 22px;
     }
 }
 
