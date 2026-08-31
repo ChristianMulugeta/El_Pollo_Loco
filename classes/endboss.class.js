@@ -5,9 +5,10 @@ class Endboss extends MovableObject {
     world;
     isActive = false;
     activationDistance = 800;
-    attackDistance = 100;
+    attackDistance = 300;
     state = 'idle';
-    speed = 1.25;
+    speed = 5;
+    attackSpeed = 6.5;
     offset = {
         top: 70,
         right: 15,
@@ -90,6 +91,7 @@ class Endboss extends MovableObject {
                 || this.state === 'alert') return;
         this.updateCombatState();
         if (this.state === 'walk') this.moveLeft();
+        if (this.state === 'attack') this.chargeAtCharacter();
     }
 
     /**
@@ -97,9 +99,27 @@ class Endboss extends MovableObject {
      * @returns {void}
      */
     updateCombatState() {
-        const distance = this.x - this.world.character.x;
+        const distance = Math.abs(this.x - this.world.character.x);
         const nextState = distance <= this.attackDistance ? 'attack' : 'walk';
         this.setBossState(nextState);
+    }
+
+    /**
+     * Charges toward Pepe and follows him after an evasive move.
+     * @returns {void}
+     */
+    chargeAtCharacter() {
+        const bossCenter = this.x + this.width / 2;
+        const characterCenter = this.world.character.x
+            + this.world.character.width / 2;
+        if (Math.abs(characterCenter - bossCenter) < 20) return;
+        if (characterCenter < bossCenter) {
+            this.x -= this.attackSpeed;
+            this.otherDirection = false;
+        } else {
+            this.x += this.attackSpeed;
+            this.otherDirection = true;
+        }
     }
 
     /**

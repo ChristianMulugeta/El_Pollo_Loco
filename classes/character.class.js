@@ -12,6 +12,8 @@ class Character extends MovableObject {
     speed = 5;
     inactivityTime = 15000;
     isSnoring = false;
+    jumpImageIndex = 0;
+    wasJumping = false;
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-11.png',
         'img/2_character_pepe/1_idle/idle/I-12.png',
@@ -137,9 +139,47 @@ class Character extends MovableObject {
      * @returns {void}
      */
     updateAnimation() {
+        if (this.isDead()) {
+            this.updateSnoring(false);
+            this.playAnimation(this.IMAGES_DEAD);
+            return;
+        }
+        if (this.isAboveGround()) {
+            this.updateSnoring(false);
+            this.playJumpAnimation();
+            return;
+        }
+        if (this.wasJumping) {
+            this.finishJumpAnimation();
+            return;
+        }
         const images = this.getCurrentAnimation();
         this.updateSnoring(images === this.IMAGES_LONG_IDLE);
         if (images) this.playAnimation(images);
+    }
+
+    /**
+     * Displays every jump frame once and holds the final airborne frame.
+     * @returns {void}
+     */
+    playJumpAnimation() {
+        if (!this.wasJumping) this.jumpImageIndex = 0;
+        const lastIndex = this.IMAGES_JUMPING.length - 1;
+        const imagePath = this.IMAGES_JUMPING[this.jumpImageIndex];
+        this.img = this.imageCache[imagePath];
+        this.jumpImageIndex = Math.min(this.jumpImageIndex + 1, lastIndex);
+        this.wasJumping = true;
+    }
+
+    /**
+     * Shows the last jump frame on landing and resets the jump state.
+     * @returns {void}
+     */
+    finishJumpAnimation() {
+        const lastImage = this.IMAGES_JUMPING[this.IMAGES_JUMPING.length - 1];
+        this.img = this.imageCache[lastImage];
+        this.jumpImageIndex = 0;
+        this.wasJumping = false;
     }
 
     /**
@@ -161,7 +201,6 @@ class Character extends MovableObject {
     getCurrentAnimation() {
         if (this.isDead()) return this.IMAGES_DEAD;
         if (this.isHurt()) return this.IMAGES_HURT;
-        if (this.isAboveGround()) return this.IMAGES_JUMPING;
         if (this.isMoving()) return this.IMAGES_WALKING;
         if (this.isLongIdle()) return this.IMAGES_LONG_IDLE;
         return this.IMAGES_IDLE;
@@ -188,6 +227,8 @@ class Character extends MovableObject {
      * @returns {void}
      */
     jump() {
+        this.jumpImageIndex = 0;
+        this.wasJumping = false;
         this.speedY = 25;
         this.world.playSound(GAME_SOUNDS.JUMP);
     }

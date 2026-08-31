@@ -221,56 +221,63 @@ class World {
      * @returns {void}
      */
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            this.handleEnemyCollision(enemy);
+        const collidingEnemies = this.getCollidingEnemies();
+        const wasDescending = this.character.speedY < 0;
+        const jumpTargets = collidingEnemies.filter((enemy) => {
+            return this.isJumpAttack(enemy, wasDescending);
         });
+        if (jumpTargets.length > 0) {
+            this.defeatEnemiesByJump(jumpTargets);
+            return;
+        }
+        collidingEnemies.forEach((enemy) => this.damageCharacter(enemy));
     }
 
     /**
-     * Chooses between a jump attack and character damage.
-     * @param {MovableObject} enemy - Enemy colliding with Pepe.
-     * @returns {void}
+     * Returns all living enemies whose hitboxes overlap Pepe.
+     * @returns {MovableObject[]} Enemies colliding in the current check.
      */
-    handleEnemyCollision(enemy) {
-        if (enemy.isDead() || !this.character.isColliding(enemy)) return;
-        if (this.isJumpAttack(enemy)) {
-            this.defeatEnemyByJump(enemy);
-            return;
-        }
-        this.damageCharacter();
+    getCollidingEnemies() {
+        return this.level.enemies.filter((enemy) => {
+            return !enemy.isDead() && this.character.isColliding(enemy);
+        });
     }
 
     /**
      * Checks whether Pepe is descending onto a normal chicken from above.
      * @param {MovableObject} enemy - Enemy involved in the collision.
+     * @param {boolean} wasDescending - Descent state before collisions change it.
      * @returns {boolean} Whether the collision is a jump attack.
      */
-    isJumpAttack(enemy) {
-        if (!(enemy instanceof Chicken) || !this.character.isAboveGround()) return false;
+    isJumpAttack(enemy, wasDescending) {
+        if (!(enemy instanceof Chicken) || !wasDescending
+                || !this.character.isAboveGround()) return false;
         const characterBottom = this.character.y + this.character.height
             - this.character.offset.bottom;
         const enemyTop = enemy.y + enemy.offset.top;
-        return this.character.speedY < 0 && characterBottom <= enemyTop + 30;
+        return characterBottom <= enemyTop + 30;
     }
 
     /**
-     * Defeats a chicken and gives Pepe a small upward bounce.
-     * @param {Chicken} enemy - Chicken defeated by the jump.
+     * Defeats all chickens hit from above and applies one upward bounce.
+     * @param {Chicken[]} enemies - Chickens defeated in the current check.
      * @returns {void}
      */
-    defeatEnemyByJump(enemy) {
-        enemy.hit();
+    defeatEnemiesByJump(enemies) {
+        enemies.forEach((enemy) => enemy.hit());
         this.playSound(GAME_SOUNDS.CHICKEN_HURT);
         this.character.speedY = 15;
     }
 
     /**
-     * Applies contact damage when the collision is not a jump attack.
+     * Applies enemy-specific contact damage outside a jump attack.
+     * @param {MovableObject} enemy - Enemy currently touching Pepe.
      * @returns {void}
      */
-    damageCharacter() {
+    damageCharacter(enemy) {
         if (this.character.isHurt()) return;
-        this.character.hit(20);
+        const damage = enemy instanceof Endboss ? 30 : 20;
+        this.character.hit(damage);
         this.playSound(GAME_SOUNDS.HURT);
         this.statusBar.setPercentage(this.character.energy);
     }
